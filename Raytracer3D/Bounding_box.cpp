@@ -1,6 +1,6 @@
 //
 //  Bounding_box.cpp
-//  TestBlade
+//  Raytracer3D
 //
 //  Created by Thomas Schucker on 11/23/15.
 //  Copyright © 2015 BWAC. All rights reserved.

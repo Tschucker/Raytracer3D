@@ -1,10 +1,10 @@
 //
 //  Triangle.cpp
-//  TestBlade
+//  Raytracer3D
 //
 //  Created by Thomas Schucker on 11/19/15.
 //  Copyright © 2015 BWAC. All rights reserved.
-//
+//  Eric
 
 //Creates triangle object to detect Ray hits on the Blade surface.
 
