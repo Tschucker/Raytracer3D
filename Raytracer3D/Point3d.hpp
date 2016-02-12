@@ -29,6 +29,7 @@ public:
     bool operator==(const Point3D& p) const;
     double distance(const Point3D& p) const;
     
+    //needed to perform swap in the flipnormal function
     friend void swap(Point3D & a, Point3D & b);
     
     inline double x() const
