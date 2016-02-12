@@ -7,7 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2C2FC3701C6E8472005548D0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC36F1C6E8472005548D0 /* main.cpp */; };
+		2C2FC38E1C6E8730005548D0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3771C6E8730005548D0 /* main.cpp */; };
+		2C2FC38F1C6E8730005548D0 /* Rib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3781C6E8730005548D0 /* Rib.cpp */; };
+		2C2FC3901C6E8730005548D0 /* Point3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC37A1C6E8730005548D0 /* Point3d.cpp */; };
+		2C2FC3911C6E8730005548D0 /* Vector3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC37C1C6E8730005548D0 /* Vector3d.cpp */; };
+		2C2FC3921C6E8730005548D0 /* Blade_surface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC37E1C6E8730005548D0 /* Blade_surface.cpp */; };
+		2C2FC3931C6E8730005548D0 /* Bounding_box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3801C6E8730005548D0 /* Bounding_box.cpp */; };
+		2C2FC3941C6E8730005548D0 /* Transmitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3821C6E8730005548D0 /* Transmitter.cpp */; };
+		2C2FC3951C6E8730005548D0 /* Receiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3841C6E8730005548D0 /* Receiver.cpp */; };
+		2C2FC3961C6E8730005548D0 /* Ray3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3861C6E8730005548D0 /* Ray3d.cpp */; };
+		2C2FC3971C6E8730005548D0 /* Rotor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3881C6E8730005548D0 /* Rotor.cpp */; };
+		2C2FC3981C6E8730005548D0 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC38A1C6E8730005548D0 /* Triangle.cpp */; };
+		2C2FC3991C6E8730005548D0 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC38C1C6E8730005548D0 /* Sphere.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +35,30 @@
 
 /* Begin PBXFileReference section */
 		2C2FC36C1C6E8472005548D0 /* Raytracer3D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Raytracer3D; sourceTree = BUILT_PRODUCTS_DIR; };
-		2C2FC36F1C6E8472005548D0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2C2FC3761C6E871F005548D0 /* rib.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = rib.txt; sourceTree = "<group>"; };
+		2C2FC3771C6E8730005548D0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2C2FC3781C6E8730005548D0 /* Rib.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rib.cpp; sourceTree = "<group>"; };
+		2C2FC3791C6E8730005548D0 /* Rib.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rib.hpp; sourceTree = "<group>"; };
+		2C2FC37A1C6E8730005548D0 /* Point3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point3d.cpp; sourceTree = "<group>"; };
+		2C2FC37B1C6E8730005548D0 /* Point3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Point3d.hpp; sourceTree = "<group>"; };
+		2C2FC37C1C6E8730005548D0 /* Vector3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3d.cpp; sourceTree = "<group>"; };
+		2C2FC37D1C6E8730005548D0 /* Vector3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Vector3d.hpp; sourceTree = "<group>"; };
+		2C2FC37E1C6E8730005548D0 /* Blade_surface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Blade_surface.cpp; sourceTree = "<group>"; };
+		2C2FC37F1C6E8730005548D0 /* Blade_surface.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Blade_surface.hpp; sourceTree = "<group>"; };
+		2C2FC3801C6E8730005548D0 /* Bounding_box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bounding_box.cpp; sourceTree = "<group>"; };
+		2C2FC3811C6E8730005548D0 /* Bounding_box.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Bounding_box.hpp; sourceTree = "<group>"; };
+		2C2FC3821C6E8730005548D0 /* Transmitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Transmitter.cpp; sourceTree = "<group>"; };
+		2C2FC3831C6E8730005548D0 /* Transmitter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Transmitter.hpp; sourceTree = "<group>"; };
+		2C2FC3841C6E8730005548D0 /* Receiver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Receiver.cpp; sourceTree = "<group>"; };
+		2C2FC3851C6E8730005548D0 /* Receiver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Receiver.hpp; sourceTree = "<group>"; };
+		2C2FC3861C6E8730005548D0 /* Ray3d.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ray3d.cpp; sourceTree = "<group>"; };
+		2C2FC3871C6E8730005548D0 /* Ray3d.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Ray3d.hpp; sourceTree = "<group>"; };
+		2C2FC3881C6E8730005548D0 /* Rotor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Rotor.cpp; sourceTree = "<group>"; };
+		2C2FC3891C6E8730005548D0 /* Rotor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Rotor.hpp; sourceTree = "<group>"; };
+		2C2FC38A1C6E8730005548D0 /* Triangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
+		2C2FC38B1C6E8730005548D0 /* Triangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
+		2C2FC38C1C6E8730005548D0 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		2C2FC38D1C6E8730005548D0 /* Sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +75,7 @@
 		2C2FC3631C6E8472005548D0 = {
 			isa = PBXGroup;
 			children = (
+				2C2FC3761C6E871F005548D0 /* rib.txt */,
 				2C2FC36E1C6E8472005548D0 /* Raytracer3D */,
 				2C2FC36D1C6E8472005548D0 /* Products */,
 			);
@@ -57,7 +92,29 @@
 		2C2FC36E1C6E8472005548D0 /* Raytracer3D */ = {
 			isa = PBXGroup;
 			children = (
-				2C2FC36F1C6E8472005548D0 /* main.cpp */,
+				2C2FC3771C6E8730005548D0 /* main.cpp */,
+				2C2FC3781C6E8730005548D0 /* Rib.cpp */,
+				2C2FC3791C6E8730005548D0 /* Rib.hpp */,
+				2C2FC37A1C6E8730005548D0 /* Point3d.cpp */,
+				2C2FC37B1C6E8730005548D0 /* Point3d.hpp */,
+				2C2FC37C1C6E8730005548D0 /* Vector3d.cpp */,
+				2C2FC37D1C6E8730005548D0 /* Vector3d.hpp */,
+				2C2FC37E1C6E8730005548D0 /* Blade_surface.cpp */,
+				2C2FC37F1C6E8730005548D0 /* Blade_surface.hpp */,
+				2C2FC3801C6E8730005548D0 /* Bounding_box.cpp */,
+				2C2FC3811C6E8730005548D0 /* Bounding_box.hpp */,
+				2C2FC3821C6E8730005548D0 /* Transmitter.cpp */,
+				2C2FC3831C6E8730005548D0 /* Transmitter.hpp */,
+				2C2FC3841C6E8730005548D0 /* Receiver.cpp */,
+				2C2FC3851C6E8730005548D0 /* Receiver.hpp */,
+				2C2FC3861C6E8730005548D0 /* Ray3d.cpp */,
+				2C2FC3871C6E8730005548D0 /* Ray3d.hpp */,
+				2C2FC3881C6E8730005548D0 /* Rotor.cpp */,
+				2C2FC3891C6E8730005548D0 /* Rotor.hpp */,
+				2C2FC38A1C6E8730005548D0 /* Triangle.cpp */,
+				2C2FC38B1C6E8730005548D0 /* Triangle.hpp */,
+				2C2FC38C1C6E8730005548D0 /* Sphere.cpp */,
+				2C2FC38D1C6E8730005548D0 /* Sphere.hpp */,
 			);
 			path = Raytracer3D;
 			sourceTree = "<group>";
@@ -118,7 +175,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C2FC3701C6E8472005548D0 /* main.cpp in Sources */,
+				2C2FC38E1C6E8730005548D0 /* main.cpp in Sources */,
+				2C2FC38F1C6E8730005548D0 /* Rib.cpp in Sources */,
+				2C2FC3951C6E8730005548D0 /* Receiver.cpp in Sources */,
+				2C2FC3921C6E8730005548D0 /* Blade_surface.cpp in Sources */,
+				2C2FC3971C6E8730005548D0 /* Rotor.cpp in Sources */,
+				2C2FC3981C6E8730005548D0 /* Triangle.cpp in Sources */,
+				2C2FC3931C6E8730005548D0 /* Bounding_box.cpp in Sources */,
+				2C2FC3901C6E8730005548D0 /* Point3d.cpp in Sources */,
+				2C2FC3911C6E8730005548D0 /* Vector3d.cpp in Sources */,
+				2C2FC3941C6E8730005548D0 /* Transmitter.cpp in Sources */,
+				2C2FC3991C6E8730005548D0 /* Sphere.cpp in Sources */,
+				2C2FC3961C6E8730005548D0 /* Ray3d.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
