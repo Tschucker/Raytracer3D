@@ -25,13 +25,11 @@ public:
     int num_points;
     
     Sphere();
-    explicit Sphere(const double radius, const Point3D& center, const int num_points);
     explicit Sphere(const double radius, const Point3D& center);
     
     bool hit(const Ray3D& ray) const;
     
 private:
-    std::vector<Point3D> points;
     
 };
 

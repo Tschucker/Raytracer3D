@@ -16,14 +16,8 @@ Sphere::Sphere()
     
 }
 
-Sphere::Sphere(const double radius, const Point3D& center, const int num_points) :
-radius(radius), center(center), num_points(num_points)
-{
-    
-}
-
 Sphere::Sphere(const double radius, const Point3D& center) :
-radius(radius), center(center),  num_points(0)
+radius(radius), center(center)
 {
     
 }
