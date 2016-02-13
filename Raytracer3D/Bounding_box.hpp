@@ -20,6 +20,7 @@ public:
     
     Bounding_box();
     explicit Bounding_box(Blade_surface& Bsurface);
+    explicit Bounding_box(Point3D& p1, Point3D& p2);
     
 private:
     int id;
