@@ -108,7 +108,7 @@ bool Triangle::hitNoCull(const Ray3D& ray, double &hitDistance, Vector3D &hitNor
 }
 
 /*
-AABB3D Triangle::getBoundingBox() const
+Bounding_box Triangle::getBoundingBox() const
 {
     return Bounding_box(v0, v1);
 }

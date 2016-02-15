@@ -35,3 +35,8 @@ Bounding_box::Bounding_box(Blade_surface& Bsurface){
 Bounding_box::Bounding_box(Point3D& p1, Point3D& p2){
     
 }
+
+bool Bounding_box::hit(){
+    //TODO math for hit on 3d cube.
+    return true;
+}

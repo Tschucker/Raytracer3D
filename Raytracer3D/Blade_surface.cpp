@@ -65,7 +65,7 @@ void Blade_surface::create_surface()
      */
     
     //adjust normals so that they all point outwards. (only look at triangles within the strip that the triangel is in.)
-    fix_surface_normals();
+    //fix_surface_normals();
     fix_surface_normals();
 }
 
@@ -105,7 +105,7 @@ void Blade_surface::update_surface()
     }
 }
 
-//in rad not sure fhich way yet
+//in rad not sure which way yet
 void Blade_surface::rotate_surface_Z(const double angle)
 {
     for (int i = 0; i<Ribs.size(); i++) {

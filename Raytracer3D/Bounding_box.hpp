@@ -22,6 +22,8 @@ public:
     explicit Bounding_box(Blade_surface& Bsurface);
     explicit Bounding_box(Point3D& p1, Point3D& p2);
     
+    bool hit();
+    
 private:
     int id;
     Point3D p1;
