@@ -128,15 +128,15 @@ void Blade_surface::pitch_surface_X(const double angle)
     update_surface();
 }
 
-std::vector<Rib> Blade_surface::getRibs()
+std::vector<Rib> Blade_surface::getRibs() const
 {
     return Ribs;
 }
-std::vector<Triangle> Blade_surface::getSurface()
+std::vector<Triangle> Blade_surface::getSurface() const
 {
     return surface;
 }
-std::vector<Point3D> Blade_surface::getPoints()
+std::vector<Point3D> Blade_surface::getPoints() const
 {
     return points;
 }

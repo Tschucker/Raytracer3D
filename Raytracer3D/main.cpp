@@ -23,9 +23,9 @@ int main(int argc, char **argv) {
     // insert code here... for testing
     std::cout << "Raytracer3D main test!\n";
     const std::string test = "/Users/tschucker/xcode projects/TestBlade/TestBlade/rib.txt";
-    Rib rib_one(0,test);
+    const Rib rib_one(0,test);
     
-    Blade_surface Bsurface(1,5,10,rib_one);
+    const Blade_surface Bsurface(1,5,10,rib_one);
     std::cout << "delta_l: " << Bsurface.delta_l << '\n';
     
     /*//TEST//

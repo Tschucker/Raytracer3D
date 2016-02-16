@@ -7,6 +7,9 @@
 //
 
 #include "Bounding_box.hpp"
+#include "Ray3d.hpp"
+
+#define EPSILON 0.000001
 
 Bounding_box::Bounding_box(){
     
@@ -31,10 +34,10 @@ Bounding_box::Bounding_box(Blade_surface& Bsurface){
         }
     }
 }
- */
+*/
 
 //for axis aligned
-Bounding_box::Bounding_box(Blade_surface& Bsurface){
+Bounding_box::Bounding_box(const Blade_surface& Bsurface){
     double x_min = 100, y_min = 100, z_min = 100;
     double x_max = 0, y_max = 0, z_max = 0;
     
@@ -55,7 +58,102 @@ Bounding_box::Bounding_box(Blade_surface& Bsurface){
     
 }
 
-bool Bounding_box::hit(){
-    //TODO math for hit on 3d cube.
-    return true;
+bool Bounding_box::hit(const Ray3D& ray, Point3D& hit_point) const
+{
+    //Math for hit on axis aligned bounding box.
+    double tx_min, ty_min, tz_min;
+    double tx_max, ty_max, tz_max;
+    
+    if (ray.direction.x() >= 0)
+    {
+        tx_min = (min_point.x() - ray.origin.x()) / ray.direction.x();
+        tx_max = (max_point.x() - ray.origin.x()) / ray.direction.x();
+    }
+    else
+    {
+        tx_min = (max_point.x() - ray.origin.x()) / ray.direction.x();
+        tx_max = (min_point.x() - ray.origin.x()) / ray.direction.x();
+    }
+    
+    if (ray.direction.y() >= 0)
+    {
+        ty_min = (min_point.y() - ray.origin.y()) / ray.direction.y();
+        ty_max = (max_point.y() - ray.origin.y()) / ray.direction.y();
+    }
+    else
+    {
+        ty_min = (max_point.y() - ray.origin.y()) / ray.direction.y();
+        ty_max = (min_point.y() - ray.origin.y()) / ray.direction.y();
+    }
+    
+    double t0, t1;
+    
+    // find largest entering t value
+    if (tx_min > ty_min)
+    {
+        t0 = tx_min;
+    }
+    else
+    {
+        t0 = ty_min;
+    }
+    
+    // find smallest exiting t value
+    if (tx_max < ty_max)
+    {
+        t1 = tx_max;
+    }
+    else
+    {
+        t1 = ty_max;
+    }
+    
+    if (ray.direction.z() != 0.0)
+    {
+        if (ray.direction.z() > 0.0)
+        {
+            tz_min = (min_point.z() - ray.origin.z()) / ray.direction.z();
+            tz_max = (max_point.z() - ray.origin.z()) / ray.direction.z();
+        }
+        else
+        {
+            tz_min = (max_point.z() - ray.origin.z()) / ray.direction.z();
+            tz_max = (min_point.z() - ray.origin.z()) / ray.direction.z();
+        }
+        
+        if (tz_min > t0)
+        {
+            t0 = tz_min;
+        }
+        
+        if (tz_max < t1)
+        {
+            t1 = tz_max;
+        }
+    }
+    
+    if (t0 < t1 && t1 > EPSILON) // condition for a hit
+    {
+        double tmin;
+        if (t0 > EPSILON)
+        {
+            tmin = t0;  			// ray hits outside surface
+        }
+        else
+        {
+            tmin = t1;				// ray hits inside surface
+        }
+        
+        hit_point = ray.origin + tmin * ray.direction;
+        
+        return true;
+    }
+    else
+        return false;
+}
+
+bool Bounding_box::hit(const Ray3D& ray) const
+{
+    Point3D hit_point;
+    return hit(ray, hit_point);
 }

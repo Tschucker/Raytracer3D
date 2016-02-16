@@ -79,7 +79,7 @@ void Rib::rotate(const double angle)
     }
 }
 
-std::vector<Point3D> Rib::getRibPoints()
+std::vector<Point3D> Rib::getRibPoints() const
 {
     return RibPoints;
 }

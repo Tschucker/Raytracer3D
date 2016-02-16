@@ -28,7 +28,7 @@ public:
     explicit Rib(int id ,const std::string &filename);
     
     int id;
-    std::vector<Point3D> getRibPoints();
+    std::vector<Point3D> getRibPoints() const;
     
     void pitch(const double angle);
     void rotate(const double angle);

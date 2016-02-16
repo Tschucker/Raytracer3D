@@ -21,10 +21,12 @@ public:
     Point3D max_point;
     
     Bounding_box();
-    explicit Bounding_box(Blade_surface& Bsurface);
-    //explicit Bounding_box(Point3D& p1, Point3D& p2);
+    explicit Bounding_box(const Blade_surface& Bsurface);
     
-    bool hit();
+    
+    bool hit(const Ray3D& ray, Point3D& hit_point) const;
+    bool hit(const Ray3D& ray) const;
+    
     
 private:
     

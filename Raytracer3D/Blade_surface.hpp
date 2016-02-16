@@ -34,9 +34,9 @@ public:
     void rotate_surface_Z(const double angle);
     void pitch_surface_X(const double angle);
     
-    std::vector<Rib> getRibs();
-    std::vector<Triangle> getSurface();
-    std::vector<Point3D> getPoints();
+    std::vector<Rib> getRibs() const ;
+    std::vector<Triangle> getSurface() const;
+    std::vector<Point3D> getPoints() const;
     
     
 private:
