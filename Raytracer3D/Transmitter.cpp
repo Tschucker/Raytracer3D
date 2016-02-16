@@ -50,15 +50,16 @@ Ray3D Transmitter::makeRay()
         pointReject = std::pow(x1, 2) + std::pow(x2, 2);
     }
     
-    //std::cout << x1 << " " << x2 <<'\n';
+    //TEST//std::cout << x1 << " " << x2 <<'\n';
     
     //place point on x,y,z coordinates of the sphere
     const double x = 2*x1*std::sqrt(1 - std::pow(x1, 2) - std::pow(x2, 2)) + this->center.x();
     const double y = 2*x2*std::sqrt(1 - std::pow(x1, 2) - std::pow(x2, 2)) + this->center.y();
     const double z = 1 - (2*(std::pow(x1, 2) + std::pow(x2, 2))) + this->center.z();
     
-    //std::cout << (std::pow(x - this->center.x(), 2) + std::pow(y - this->center.y(), 2) + std::pow(z - this->center.z(), 2))<<'\n';
-    std::cout << x << " " << y << " " << z << ";" << '\n';
+    //TEST//std::cout << (std::pow(x - this->center.x(), 2) + std::pow(y - this->center.y(), 2) + std::pow(z - this->center.z(), 2))<<'\n';
+    
+    //TEST//std::cout << x << " " << y << " " << z << ";" << '\n';
     return makeRay(Vector3D(x, y, z));
     
 }
@@ -67,10 +68,7 @@ Ray3D Transmitter::makeRay()
 //need to fix this
 Ray3D Transmitter::makeRay(const Vector3D &rayDirection)
 {
-    //const double dopplerCoefficient = getDopplerCoefficient(rayDirection, velocity);
     const double radiantIntensity = getPower() / (4.0 * M_PI); // power per unit solid angle
-    
-    //  + frequencyDistribution(generator)
     return Ray3D(center, rayDirection, radiantIntensity, frequency);
     
 }

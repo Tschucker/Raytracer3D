@@ -27,7 +27,7 @@ public:
     Sphere();
     explicit Sphere(const double radius, const Point3D& center);
     
-    bool hit(const Ray3D& ray) const;
+    bool hit(const Ray3D& ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint) const;
     
 private:
     

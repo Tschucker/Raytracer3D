@@ -22,7 +22,7 @@ Rib::Rib(int id, const Rib& x, const double delta_l)
         RibPoints.push_back(Point3D(x.RibPoints[i].x() + delta_l, x.RibPoints[i].y(), x.RibPoints[i].z()));
     }
     
-    /*
+    /*//TEST//
     for (int i = 0; i<RibPoints.size(); i++) {
         std::cout <<"X: "<< RibPoints[i].x()<<" Y: "<< RibPoints[i].y() << " Z: " << RibPoints[i].z() << '\n';
     }
@@ -46,7 +46,7 @@ Rib::Rib(int id ,const std::string& filename)
             double Z = std::stod (line.substr(sz));
             RibPoints.push_back(Point3D(.001*Y, .001*Z));
             
-            //std::cout << "Y: "<< Y << " Z: " << Z << '\n';
+            //TEST//std::cout << "Y: "<< Y << " Z: " << Z << '\n';
             
         }
         myfile.close();
@@ -55,7 +55,7 @@ Rib::Rib(int id ,const std::string& filename)
     
     else std::cout << "Unable to open file \n";
     
-    /*
+    /*//TEST//
     std::cout << "Test \n";
     for (int i = 0; i<RibPoints.size(); i++) {
         std::cout <<"X: "<< RibPoints[i].x()<<" Y: "<< RibPoints[i].y() << " Z: " << RibPoints[i].z() << '\n';

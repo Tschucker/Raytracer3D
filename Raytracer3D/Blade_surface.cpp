@@ -40,9 +40,8 @@ void Blade_surface::create_surface()
     int nextPoint = 0;
     
     for (int i = 0; i < Ribs.size() - 1; i++) {
-        //std::cout << Ribs[i].id << '\n';
         for( int j = 0; j < Ribs[i].getRibPoints().size(); j++){
-            //std::cout << &Ribs[i].getRibPoints()[j] << j << '\n';
+            //TEST//std::cout << &Ribs[i].getRibPoints()[j] << j << '\n';
             if (j + 1 == Ribs[i].getRibPoints().size()) {
                 nextPoint = 0;
             }
@@ -54,6 +53,9 @@ void Blade_surface::create_surface()
             surface.push_back(Triangle(Ribs[i+1].getRibPoints()[j], Ribs[i+1].getRibPoints()[nextPoint], Ribs[i].getRibPoints()[nextPoint]));
         }
     }
+    //adjust normals so that they all point outwards. (only look at triangles within the strip that the triangel is in.)
+    fix_surface_normals();
+    
     /* ///TEST////
     for ( int i = 0; i < surface.size(); i++) {
         std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
@@ -63,10 +65,6 @@ void Blade_surface::create_surface()
         
     }
      */
-    
-    //adjust normals so that they all point outwards. (only look at triangles within the strip that the triangel is in.)
-    //fix_surface_normals();
-    fix_surface_normals();
 }
 
 void Blade_surface::fix_surface_normals(){
@@ -79,7 +77,7 @@ void Blade_surface::fix_surface_normals(){
             bool flipped = false;
             for (int j = 0; j < triangles_per_strip; j++) {
                 if (surface[i+s*triangles_per_strip] == surface[j+s*triangles_per_strip]) {
-                    std::cout << "same " << i+ s*triangles_per_strip << '\n';
+                    //TEST//std::cout << "same " << i+ s*triangles_per_strip << '\n';
                 }
                 else{
                     double h;
@@ -89,7 +87,7 @@ void Blade_surface::fix_surface_normals(){
                     if (flipped==false && surface[j+s*triangles_per_strip].hit(testRay, h, v, p)) {
                         surface[i+s*triangles_per_strip].flipNormal();
                         flipped = true;
-                        std::cout << "flipped " << i + s*triangles_per_strip<< " hit  " << j+ s*triangles_per_strip << '\n';
+                        //TEST//std::cout << "flipped " << i + s*triangles_per_strip<< " hit  " << j+ s*triangles_per_strip << '\n';
                     }
                 }
             }

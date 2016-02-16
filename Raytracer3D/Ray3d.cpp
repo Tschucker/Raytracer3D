@@ -11,7 +11,7 @@
 #include "Ray3d.hpp"
 
 Ray3D::Ray3D() :
-origin(0, 0, 0), direction(0, 0, 1), power(1.0), frequency(0.0)
+origin(0, 0, 0), direction(0, 0, .5), power(1.0), frequency(0.0)
 {
 }
 
