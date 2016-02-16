@@ -7,7 +7,6 @@
 //
 
 #include "Bounding_box.hpp"
-#include "Ray3d.hpp"
 
 #define EPSILON 0.000001
 
@@ -37,18 +36,18 @@ Bounding_box::Bounding_box(Blade_surface& Bsurface){
 */
 
 //for axis aligned
-Bounding_box::Bounding_box(const Blade_surface& Bsurface){
+Bounding_box::Bounding_box(std::vector<Point3D> points){
     double x_min = 100, y_min = 100, z_min = 100;
     double x_max = 0, y_max = 0, z_max = 0;
     
-    for (int i = 0; i < Bsurface.getPoints().size(); i++) {
-        x_min = std::min(x_min, Bsurface.getPoints()[i].x());
-        y_min = std::min(y_min, Bsurface.getPoints()[i].y());
-        z_min = std::min(z_min, Bsurface.getPoints()[i].z());
+    for (int i = 0; i < points.size(); i++) {
+        x_min = std::min(x_min, points[i].x());
+        y_min = std::min(y_min, points[i].y());
+        z_min = std::min(z_min, points[i].z());
         
-        x_max = std::max(x_max, Bsurface.getPoints()[i].x());
-        y_max = std::max(y_max, Bsurface.getPoints()[i].y());
-        z_max = std::max(z_max, Bsurface.getPoints()[i].z());
+        x_max = std::max(x_max, points[i].x());
+        y_max = std::max(y_max, points[i].y());
+        z_max = std::max(z_max, points[i].z());
     }
     Point3D min(x_min, y_min, z_min);
     Point3D max(x_max, y_max, z_max);

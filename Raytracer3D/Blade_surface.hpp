@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include "Triangle.hpp"
 #include "Rib.hpp"
+#include "Bounding_box.hpp"
 
 class Blade_surface
 {
@@ -30,6 +31,7 @@ public:
     
     void create_surface();
     void update_surface();
+    void update_bounding_box();
     
     void rotate_surface_Z(const double angle);
     void pitch_surface_X(const double angle);
@@ -38,11 +40,15 @@ public:
     std::vector<Triangle> getSurface() const;
     std::vector<Point3D> getPoints() const;
     
+    Bounding_box getBox();
+    
     
 private:
     std::vector<Rib> Ribs;
     std::vector<Triangle> surface;
     std::vector<Point3D> points;
+    
+    Bounding_box box;
     
     void fix_surface_normals();
     

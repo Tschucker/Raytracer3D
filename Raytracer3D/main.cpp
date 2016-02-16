@@ -25,7 +25,7 @@ int main(int argc, char **argv) {
     const std::string test = "/Users/tschucker/xcode projects/TestBlade/TestBlade/rib.txt";
     const Rib rib_one(0,test);
     
-    const Blade_surface Bsurface(1,5,10,rib_one);
+    Blade_surface Bsurface(1,5,10,rib_one);
     std::cout << "delta_l: " << Bsurface.delta_l << '\n';
     
     /*//TEST//
@@ -54,6 +54,9 @@ int main(int argc, char **argv) {
         tr.makeRay();
     }
     
+    //Bounding_box bbox(Bsurface);
+    
+    
     /*//TEST//
     Point3D pt(0, .9, 10);
     Sphere s(1,pt);
@@ -70,9 +73,10 @@ int main(int argc, char **argv) {
     
     //TEST axis aligned bounding box max and min
     /*
-    Bounding_box box(Bsurface);
-    std::cout << box.min_point.x() << '\n';
-    std::cout << box.max_point.x() << '\n';
+    Bounding_box box(Bsurface.getPoints());
+    
+    std::cout << Bsurface.getBox().min_point.x() << '\n';
+    std::cout << Bsurface.getBox().max_point.x() << '\n';
     */
     
     return 0;

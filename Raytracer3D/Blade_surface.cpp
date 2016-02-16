@@ -38,6 +38,8 @@ Blade_surface::Blade_surface(const int id, const double length, const int Rib_co
     }
     
     create_surface();
+    Bounding_box bbox(this->points);
+    box = bbox;
     
     
 }
@@ -117,6 +119,7 @@ void Blade_surface::rotate_surface_Z(const double angle)
         Ribs[i].rotate(angle);
     }
     update_surface();
+    update_bounding_box();
 }
 
 //only pitch before blade rotates !!! in rad
@@ -126,7 +129,15 @@ void Blade_surface::pitch_surface_X(const double angle)
         Ribs[i].pitch(angle);
     }
     update_surface();
+    update_bounding_box();
 }
+
+void Blade_surface::update_bounding_box()
+{
+    Bounding_box bbox(this->points);
+    box = bbox;
+}
+
 
 std::vector<Rib> Blade_surface::getRibs() const
 {
@@ -139,4 +150,9 @@ std::vector<Triangle> Blade_surface::getSurface() const
 std::vector<Point3D> Blade_surface::getPoints() const
 {
     return points;
+}
+Bounding_box Blade_surface::getBox()
+{
+    update_bounding_box();
+    return box;
 }

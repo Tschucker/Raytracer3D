@@ -11,7 +11,8 @@
 
 #include <stdio.h>
 #include "Point3d.hpp"
-#include "Blade_surface.hpp"
+#include "Ray3d.hpp"
+#include <vector>
 
 
 class Bounding_box
@@ -21,7 +22,7 @@ public:
     Point3D max_point;
     
     Bounding_box();
-    explicit Bounding_box(const Blade_surface& Bsurface);
+    explicit Bounding_box(std::vector<Point3D> points);
     
     
     bool hit(const Ray3D& ray, Point3D& hit_point) const;
