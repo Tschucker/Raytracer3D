@@ -30,6 +30,13 @@ Blade_surface::Blade_surface(const int id, const double length, const int Rib_co
     {
         Ribs.push_back( Rib(i, Ribs[i -1], delta_l));
     }
+    
+    for (int i = 0; i < Ribs.size(); i++) {
+        for (int j = 0; j < Ribs[i].getRibPoints().size(); j++) {
+            points.push_back(Ribs[i].getRibPoints()[j]);
+        }
+    }
+    
     create_surface();
     
     
@@ -128,4 +135,8 @@ std::vector<Rib> Blade_surface::getRibs()
 std::vector<Triangle> Blade_surface::getSurface()
 {
     return surface;
+}
+std::vector<Point3D> Blade_surface::getPoints()
+{
+    return points;
 }

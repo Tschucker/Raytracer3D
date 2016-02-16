@@ -36,11 +36,13 @@ public:
     
     std::vector<Rib> getRibs();
     std::vector<Triangle> getSurface();
+    std::vector<Point3D> getPoints();
     
     
 private:
     std::vector<Rib> Ribs;
     std::vector<Triangle> surface;
+    std::vector<Point3D> points;
     
     void fix_surface_normals();
     

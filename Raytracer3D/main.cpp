@@ -11,6 +11,7 @@
 #include "Blade_surface.hpp"
 #include "Transmitter.hpp"
 #include "Sphere.hpp"
+#include "Bounding_box.hpp"
 
 #include <sstream>
 
@@ -65,6 +66,13 @@ int main(int argc, char **argv) {
     if (s.hit(testRay, hitDistance, hitNormal, hitPoint)) {
         std::cout << "ray hit" << '\n';
     }
+    */
+    
+    //TEST axis aligned bounding box max and min
+    /*
+    Bounding_box box(Bsurface);
+    std::cout << box.min_point.x() << '\n';
+    std::cout << box.max_point.x() << '\n';
     */
     
     return 0;
