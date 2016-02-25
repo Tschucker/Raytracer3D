@@ -80,6 +80,13 @@ void Rib::rotate(const double angle)
     }
 }
 
+void Rib::height(const double height)
+{
+    for (int i = 0; i<RibPoints.size(); i++) {
+        RibPoints[i].translate_Z(height);
+    }
+}
+
 std::vector<Point3D> Rib::getRibPoints() const
 {
     return RibPoints;

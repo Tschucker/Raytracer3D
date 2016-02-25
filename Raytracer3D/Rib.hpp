@@ -32,6 +32,7 @@ public:
     
     void pitch(const double angle);
     void rotate(const double angle);
+    void height(const double height);
     
 private:
     std::vector<Point3D> RibPoints;
