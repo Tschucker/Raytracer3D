@@ -132,6 +132,15 @@ void Blade_surface::pitch_surface_X(const double angle)
     update_bounding_box();
 }
 
+void Blade_surface::height_surface_Z(const double height)
+{
+    for (int i = 0; i<Ribs.size(); i++) {
+        Ribs[i].height(height);
+    }
+    update_surface();
+    update_bounding_box();
+}
+
 void Blade_surface::update_bounding_box()
 {
     Bounding_box bbox(this->points);
