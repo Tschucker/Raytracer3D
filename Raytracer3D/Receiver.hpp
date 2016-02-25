@@ -24,12 +24,16 @@ public:
     double Resolution;
     double boundary_radius;
     Point3D center;
-    Sphere boundary;
+    
     
     Receiver();
     explicit Receiver(const int id, const double Bandwidth, const double center_freq,
                       const Point3D& center, const double boundary_radius);
     
+    Sphere get_Boundary();
+    
+private:
+    Sphere boundary;
 };
 
 

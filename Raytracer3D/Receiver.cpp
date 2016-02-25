@@ -20,6 +20,10 @@ Receiver::Receiver(const int id, const double Bandwidth, const double center_fre
                    const Point3D& center, const double boundary_radius) :
     id(id), Bandwidth(Bandwidth), center_freq(center_freq), center(center), boundary_radius(boundary_radius)
 {
-    
+    boundary = Sphere(boundary_radius, center);
 }
 
+Sphere Receiver::get_Boundary()
+{
+    return boundary;
+}
