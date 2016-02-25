@@ -9,3 +9,17 @@
 //Creates a Receiver and its position in 3d space.
 
 #include "Receiver.hpp"
+
+Receiver::Receiver() :
+    Receiver(-1,0,0, Point3D(0,0,0), 0)
+{
+    
+}
+
+Receiver::Receiver(const int id, const double Bandwidth, const double center_freq,
+                   const Point3D& center, const double boundary_radius) :
+    id(id), Bandwidth(Bandwidth), center_freq(center_freq), center(center), boundary_radius(boundary_radius)
+{
+    
+}
+

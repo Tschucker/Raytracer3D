@@ -132,6 +132,7 @@ void Blade_surface::pitch_surface_X(const double angle)
     update_bounding_box();
 }
 
+//translate after pitch.
 void Blade_surface::height_surface_Z(const double height)
 {
     for (int i = 0; i<Ribs.size(); i++) {

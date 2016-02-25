@@ -28,7 +28,7 @@ public:
     
     Receiver();
     explicit Receiver(const int id, const double Bandwidth, const double center_freq,
-                      const double Resolution, const Point3D& center, const double boundary_radius);
+                      const Point3D& center, const double boundary_radius);
     
 };
 
