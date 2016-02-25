@@ -27,3 +27,8 @@ Sphere Receiver::get_Boundary()
 {
     return boundary;
 }
+
+std::vector<Ray3D> Receiver::get_frame_data()
+{
+    return frame_data;
+}

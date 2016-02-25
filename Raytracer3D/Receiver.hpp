@@ -31,9 +31,11 @@ public:
                       const Point3D& center, const double boundary_radius);
     
     Sphere get_Boundary();
+    std::vector<Ray3D> get_frame_data();
     
 private:
     Sphere boundary;
+    std::vector<Ray3D> frame_data;
 };
 
 
