@@ -79,5 +79,8 @@ int main(int argc, char **argv) {
     std::cout << Bsurface.getBox().max_point.x() << '\n';
     */
     
+    //minimum double value
+    //std::cout << std::defaultfloat << std::numeric_limits<double>::min() << '\n';
+    
     return 0;
 }

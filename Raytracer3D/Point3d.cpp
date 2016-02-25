@@ -50,3 +50,8 @@ void Point3D::rotate_X(const double angle)
     m_y = m_y * cosAngle  + m_z * (-sinAngle);
     m_z = m_y * sinAngle  + m_z * cosAngle;
 }
+
+void Point3D::translate_Z(const double height)
+{
+    m_z = m_z + height;
+}

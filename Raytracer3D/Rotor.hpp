@@ -20,10 +20,8 @@ public:
     int id;
     double RPM;
     int num_blades;
-    
     double height;
     Point3D axis_rotation; //use height for where the point should be. use 0,0,height for ease of use
-    
     
 };
 

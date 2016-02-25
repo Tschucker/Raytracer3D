@@ -49,6 +49,7 @@ public:
     
     void rotate_Z(const double angle);
     void rotate_X(const double angle);
+    void translate_Z(const double height);
     
 private:
     double m_x;
