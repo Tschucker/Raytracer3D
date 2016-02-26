@@ -38,11 +38,19 @@ void Scene::trace(int num_rays)
     std::cout << "number of frames: " << number_of_frames << '\n';
     
     //iterate over the frames
+    for (int i = 0; i < number_of_frames; i++) {
         //trace
-    
+        for (int j = 0; j < num_rays; j++) {
+            Ray3D test_ray = transmitter.makeRay();
+            //check collisions
+        }
         //collect data
+        
         //aggrigate data and save to samples file.
+        
         //update scene
+        update();
+    }
 }
 
 //updates the scene give params not sure yet.
