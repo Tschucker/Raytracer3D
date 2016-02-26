@@ -23,6 +23,16 @@ public:
     Scene();
     //explicit Scene();
     
+    Rotor get_rotor();
+    Transmitter get_transmitter();
+    Receiver get_receiver();
+    
+    void trace(int num_rays);
+    void update();
+    
 private:
+    Rotor rotor;
+    Transmitter transmitter;
+    Receiver receiver;
     
 };
