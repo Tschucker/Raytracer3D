@@ -7,3 +7,8 @@
 //
 
 #include "Scene.hpp"
+
+Scene::Scene()
+{
+    //create all objects for the scene
+}

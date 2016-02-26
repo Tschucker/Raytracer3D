@@ -30,7 +30,7 @@ public:
     void rotate(const double angle);
     
     Rotor();
-    Rotor(const int id, const int num_blades, const double RPM, const double height, const double constant_pitch,
+    explicit Rotor(const int id, const int num_blades, const double RPM, const double height, const double constant_pitch,
           const double blade_length, const int Rib_count);
         
 private:

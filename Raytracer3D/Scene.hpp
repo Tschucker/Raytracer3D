@@ -5,6 +5,7 @@
 //  Created by Thomas Schucker on 2/25/16.
 //  Copyright © 2016 BWAC. All rights reserved.
 //
+// Describes the scene of objects.
 
 #ifndef Scene_hpp
 #define Scene_hpp
@@ -15,3 +16,13 @@
 #include "Receiver.hpp"
 
 #endif /* Scene_hpp */
+
+class Scene
+{
+public:
+    Scene();
+    //explicit Scene();
+    
+private:
+    
+};
