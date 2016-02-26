@@ -11,7 +11,7 @@
 #include "Receiver.hpp"
 
 Receiver::Receiver() :
-    Receiver(-1,0,0, Point3D(0,0,0), 0)
+    Receiver(-1,0,0, Point3D(0,0,0), 1)
 {
     
 }

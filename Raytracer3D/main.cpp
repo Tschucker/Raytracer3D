@@ -12,6 +12,7 @@
 #include "Transmitter.hpp"
 #include "Sphere.hpp"
 #include "Bounding_box.hpp"
+#include "Scene.hpp"
 
 #include <sstream>
 
@@ -81,6 +82,13 @@ int main(int argc, char **argv) {
     
     //minimum double value
     //std::cout << std::defaultfloat << std::numeric_limits<double>::min() << '\n';
+    
+    //test scene generation.
+    Scene s;
+    s.trace(10);
+    
+
+    
     
     return 0;
 }

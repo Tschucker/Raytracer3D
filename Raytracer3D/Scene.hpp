@@ -21,7 +21,6 @@ class Scene
 {
 public:
     Scene();
-    //explicit Scene();
     
     Rotor get_rotor();
     Transmitter get_transmitter();
