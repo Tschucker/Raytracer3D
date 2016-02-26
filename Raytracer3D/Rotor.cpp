@@ -9,3 +9,14 @@
 //Defines Helicopter rotor, including blades, speed, pitch, lenght, resolution.
 
 #include "Rotor.hpp"
+
+Rotor::Rotor()
+{
+    
+}
+
+Rotor::Rotor(int id, int num_blades, double RPM, double height) :
+    id(id), num_blades(num_blades), RPM(RPM), height(height)
+{
+    //create full rotor head using blade surface....
+}

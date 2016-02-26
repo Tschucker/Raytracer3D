@@ -18,11 +18,20 @@ class Rotor
 {
 public:
     int id;
+    
+    double get_RPM();
+    int get_num_blades();
+    double get_height();
+    Point3D get_axis();
+    
+    Rotor();
+    Rotor(int id, int num_blades, double RPM, double height);
+        
+private:
     double RPM;
     int num_blades;
     double height;
     Point3D axis_rotation; //use height for where the point should be. use 0,0,height for ease of use
-    
 };
 
 
