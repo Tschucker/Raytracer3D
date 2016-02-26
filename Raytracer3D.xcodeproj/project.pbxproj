@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C2B52851C7FD135009A1959 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2B52831C7FD135009A1959 /* Scene.cpp */; };
 		2C2FC38E1C6E8730005548D0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3771C6E8730005548D0 /* main.cpp */; };
 		2C2FC38F1C6E8730005548D0 /* Rib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC3781C6E8730005548D0 /* Rib.cpp */; };
 		2C2FC3901C6E8730005548D0 /* Point3d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C2FC37A1C6E8730005548D0 /* Point3d.cpp */; };
@@ -34,6 +35,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2C2B52831C7FD135009A1959 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		2C2B52841C7FD135009A1959 /* Scene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scene.hpp; sourceTree = "<group>"; };
 		2C2FC36C1C6E8472005548D0 /* Raytracer3D */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Raytracer3D; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2FC3761C6E871F005548D0 /* rib.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = rib.txt; sourceTree = "<group>"; };
 		2C2FC3771C6E8730005548D0 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				2C2FC3771C6E8730005548D0 /* main.cpp */,
+				2C2B52831C7FD135009A1959 /* Scene.cpp */,
+				2C2B52841C7FD135009A1959 /* Scene.hpp */,
 				2C2FC3781C6E8730005548D0 /* Rib.cpp */,
 				2C2FC3791C6E8730005548D0 /* Rib.hpp */,
 				2C2FC37A1C6E8730005548D0 /* Point3d.cpp */,
@@ -176,6 +181,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C2FC38E1C6E8730005548D0 /* main.cpp in Sources */,
+				2C2B52851C7FD135009A1959 /* Scene.cpp in Sources */,
 				2C2FC38F1C6E8730005548D0 /* Rib.cpp in Sources */,
 				2C2FC3951C6E8730005548D0 /* Receiver.cpp in Sources */,
 				2C2FC3921C6E8730005548D0 /* Blade_surface.cpp in Sources */,
@@ -305,6 +311,7 @@
 				2C2FC3751C6E8472005548D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
