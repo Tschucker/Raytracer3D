@@ -16,15 +16,12 @@ Blade_surface::Blade_surface()
     
 }
 
-Blade_surface::Blade_surface(const int id, const double length, const int Rib_count, const Rib& origin_Rib)
+Blade_surface::Blade_surface(const int id, const double length, const int Rib_count, const Rib& origin_Rib):
+    id(id), length(length), Rib_count(Rib_count)
 {
-    this->id = id;
-    this->length = length;
-    this->Rib_count = Rib_count;
-    
     Ribs.push_back(origin_Rib);
     
-    this->delta_l = length/Rib_count;
+    delta_l = length/Rib_count;
     
     for (int i = 1; i < Rib_count + 1; i++) //add 1 to get correct blade length in m
     {
