@@ -31,11 +31,13 @@ public:
                       const Point3D& center, const double boundary_radius);
     
     Sphere get_Boundary();
+    double get_sampling_rate();
     std::vector<Ray3D> get_frame_data();
     
 private:
     Sphere boundary;
     std::vector<Ray3D> frame_data;
+    double sampling_rate;
 };
 
 

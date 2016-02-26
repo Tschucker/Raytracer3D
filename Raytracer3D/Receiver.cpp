@@ -28,6 +28,12 @@ Sphere Receiver::get_Boundary()
     return boundary;
 }
 
+double Receiver::get_sampling_rate()
+{
+    sampling_rate = Bandwidth*2;
+    return sampling_rate;
+}
+
 std::vector<Ray3D> Receiver::get_frame_data()
 {
     return frame_data;
