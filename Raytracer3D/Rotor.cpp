@@ -20,3 +20,15 @@ Rotor::Rotor(int id, int num_blades, double RPM, double height) :
 {
     //create full rotor head using blade surface....
 }
+
+double Rotor::get_RPM(){
+    return RPM;
+}
+
+double Rotor::get_height(){
+    return height;
+}
+
+int Rotor::get_num_blades(){
+    return num_blades;
+}
