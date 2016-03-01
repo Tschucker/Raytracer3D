@@ -26,7 +26,7 @@ Scene::Scene()
 }
 
 //traces the scene with # of rays per frame.
-void Scene::trace(int num_rays)
+void Scene::trace_scene(int num_rays)
 {
     //calc scene update params for each frame.
     double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
@@ -56,27 +56,7 @@ void Scene::trace(int num_rays)
             }
             else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)) {
                 //create new ray that has been doppler shifted and check receiver.
-                
-                //form vect in direction of rotation
-                Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
-                
-                //find radial distance
-                double hit_point_radius_dist = std::sqrt((hitPoint.x()*hitPoint.x()) + (hitPoint.y()*hitPoint.y()));
-                
-                //determine how doppler is appled
-                if (hit_point_radius_perp*test_ray.direction > -EPSILON && hit_point_radius_perp*test_ray.direction < EPSILON) {
-                    //perpendicular no doppler
-                }
-                else if (hit_point_radius_perp*test_ray.direction > EPSILON) {
-                    //less than 90deg positive doppler incoming
-                }
-                else{
-                    //greater than 90deg negative doppler receding
-                }
-                
-                //determine reflection and specular reflection?
-                
-                //create new ray.
+                trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
             }
         }
         //collect data
@@ -86,6 +66,48 @@ void Scene::trace(int num_rays)
         //update scene
         update();
     }
+}
+
+void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
+{
+    //form vect in direction of rotation
+    Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
+    
+    //find radial distance
+    double hit_point_radius_dist = std::sqrt((hitPoint.x()*hitPoint.x()) + (hitPoint.y()*hitPoint.y()));
+    
+    //determine reflection make sure is a vector
+    Vector3D reflection = test_ray.direction - (2 * hitNormal) * (test_ray.direction * hitNormal);
+    
+    //determine how doppler is appled
+    
+    if (hit_point_radius_perp*reflection > -EPSILON && hit_point_radius_perp*reflection < EPSILON) {
+        //perpendicular to blade no doppler
+    }
+    else if (hit_point_radius_perp*reflection > EPSILON) {
+        //less than 90deg positive so positive doppler
+    }
+    else{
+        //greater than 90deg negative so negative doppler
+    }
+    
+    //determine specular reflection?
+    
+    //create new ray.
+    
+    //check for hit on recever (return)
+    if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
+        receiver.get_frame_data().push_back(test_ray);
+        return;
+    }
+    
+    //check for hit on blade? or other object (call trace_vect on new)
+    else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)){
+        trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
+    }
+    
+    //else return
+    else return;
 }
 
 //updates the scene give params not sure yet.

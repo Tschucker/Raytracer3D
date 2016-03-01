@@ -26,7 +26,8 @@ public:
     Transmitter get_transmitter();
     Receiver get_receiver();
     
-    void trace(int num_rays);
+    void trace_scene(int num_rays);
+    void trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint);
     void update();
     
 private:

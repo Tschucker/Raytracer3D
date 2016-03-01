@@ -85,7 +85,7 @@ int main(int argc, char **argv) {
     
     //test scene generation.
     Scene s;
-    s.trace(10);
+    s.trace_scene(10);
     
 
     

@@ -67,6 +67,6 @@ bool Rotor::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Poin
 {
     //iterate through blades and bounding boxes and return hit on triangle in mesh.
     
-    return true;
+    return false;
 }
 
