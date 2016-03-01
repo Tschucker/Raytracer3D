@@ -8,6 +8,8 @@
 
 #include "Scene.hpp"
 
+#define EPSILON 0.0000001
+
 Scene::Scene()
 {
     //create all objects for the scene
@@ -42,7 +44,40 @@ void Scene::trace(int num_rays)
         //trace
         for (int j = 0; j < num_rays; j++) {
             Ray3D test_ray = transmitter.makeRay();
+            double hitDistance;
+            Vector3D hitNormal;
+            Point3D hitPoint;
             //check collisions
+            if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
+                //add to receiver data and break
+                
+                //need to power adjust
+                receiver.get_frame_data().push_back(test_ray);
+            }
+            else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)) {
+                //create new ray that has been doppler shifted and check receiver.
+                
+                //form vect in direction of rotation
+                Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
+                
+                //find radial distance
+                double hit_point_radius_dist = std::sqrt((hitPoint.x()*hitPoint.x()) + (hitPoint.y()*hitPoint.y()));
+                
+                //determine how doppler is appled
+                if (hit_point_radius_perp*test_ray.direction > -EPSILON && hit_point_radius_perp*test_ray.direction < EPSILON) {
+                    //perpendicular no doppler
+                }
+                else if (hit_point_radius_perp*test_ray.direction > EPSILON) {
+                    //less than 90deg positive doppler incoming
+                }
+                else{
+                    //greater than 90deg negative doppler receding
+                }
+                
+                //determine reflection and specular reflection?
+                
+                //create new ray.
+            }
         }
         //collect data
         

@@ -62,3 +62,11 @@ double Rotor::get_constant_pitch(){
 std::vector<Blade_surface> Rotor::get_Blades(){
     return Blades;
 }
+
+bool Rotor::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
+{
+    //iterate through blades and bounding boxes and return hit on triangle in mesh.
+    
+    return true;
+}
+

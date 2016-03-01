@@ -10,6 +10,7 @@
 
 #include "Rib.hpp"
 
+
 Rib::Rib()
 {
 }
@@ -44,8 +45,8 @@ Rib::Rib(int id ,const std::string& filename)
             std::string::size_type sz;
             double Y = std::stod (line,&sz);
             double Z = std::stod (line.substr(sz));
-            //format to mm 
-            RibPoints.push_back(Point3D(.001*Y, .001*Z));
+            //format to mm -Y so airfoil shape is pointing the direction of positive rad ??
+            RibPoints.push_back(Point3D(-.001*Y, .001*Z));
             
             //TEST//std::cout << "Y: "<< Y << " Z: " << Z << '\n';
             

@@ -28,6 +28,7 @@ public:
     std::vector<Blade_surface> get_Blades();
     
     void rotate(const double angle);
+    bool hit(const Ray3D &ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint);
     
     Rotor();
     explicit Rotor(const int id, const int num_blades, const double RPM, const double height, const double constant_pitch,
