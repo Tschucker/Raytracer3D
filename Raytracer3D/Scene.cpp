@@ -8,7 +8,6 @@
 
 #include "Scene.hpp"
 
-#define EPSILON 0.0000001
 
 Scene::Scene()
 {
@@ -75,30 +74,17 @@ void Scene::trace_scene(int num_rays)
 
 void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
 {
-    //form vect in direction of rotation
-    Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
-    
-    //find radial distance
-    double hit_point_radius_dist = std::sqrt((hitPoint.x()*hitPoint.x()) + (hitPoint.y()*hitPoint.y()));
-    
     //determine reflection make sure is a vector
     Vector3D reflection = test_ray.direction - (2 * hitNormal) * (test_ray.direction * hitNormal);
     
-    //determine how doppler is appled
-    if (hit_point_radius_perp*reflection > -EPSILON && hit_point_radius_perp*reflection < EPSILON) {
-        //perpendicular to blade no doppler
-        
-    }
-    else if (hit_point_radius_perp*reflection > EPSILON) {
-        //less than 90deg positive so positive doppler
-    }
-    else{
-        //greater than 90deg negative so negative doppler
-    }
+    //create new ray to trace.
+    test_ray.power = getDistancePower(test_ray.frequency, test_ray.power, hitDistance);
+    test_ray.origin = hitPoint;
+    test_ray.direction = reflection;
+    test_ray.frequency = getDoppler(test_ray, hitNormal, hitPoint, rotor.get_RPM());
     
     //determine specular reflection?
     
-    //create new ray to trace.
     
     //check for hit on recever (return)
     if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
