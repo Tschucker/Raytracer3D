@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
     
     //test scene generation.
     Scene s;
-    s.trace_scene(20000000);
+    s.trace_scene(2000000);
     
     //test sphere hit
     Point3D pt(0, 0, 10);

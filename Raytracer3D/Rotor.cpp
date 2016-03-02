@@ -66,6 +66,17 @@ std::vector<Blade_surface> Rotor::get_Blades(){
 bool Rotor::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
 {
     //iterate through blades and bounding boxes and return hit on triangle in mesh.
+    for (int i = 0; i < Blades.size(); i++) {
+        //check bounding box
+        if(Blades[i].getBox().hit(ray, hitPoint))
+        {
+            if(Blades[i].hit(ray, hitDistance, hitNormal, hitPoint))
+            {
+                std::cout << "hit Rotor" <<'\n';
+                return true;
+            }
+        }
+    }
     
     return false;
 }

@@ -8,16 +8,18 @@
 
 #include "Scene.hpp"
 
+int bounce = 0;
+
 
 Scene::Scene()
 {
     //create all objects for the scene
     
     //default rotor with id=0, num_blades=1, RPM=350, Height=100m, pitch=0, blade_length=5m, rib_count=10.
-    rotor = Rotor(0, 1, 350, 100, 0, 5, 10);
+    rotor = Rotor(0, 1, 350, 12, 0, 5, 10);
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,200,0));
+    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,10,0));
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
     receiver = Receiver(0, 1000000, 1000000000, Point3D(0, 0, rotor.get_height() - 2), 1);
@@ -54,6 +56,7 @@ void Scene::trace_scene(int num_rays)
                 
                 //need to power adjust
                 receiver.save_ray_toFrame(test_ray);
+                bounce = 0;
                 
             }
             
@@ -74,6 +77,8 @@ void Scene::trace_scene(int num_rays)
 
 void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
 {
+    bounce++;
+    
     //determine reflection make sure is a vector
     Vector3D reflection = test_ray.direction - (2 * hitNormal) * (test_ray.direction * hitNormal);
     
@@ -89,16 +94,23 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     //check for hit on recever (return)
     if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
         receiver.get_frame_data().push_back(test_ray);
+        std::cout << "reflected in!"<<'\n';
+        bounce = 0;
         return;
     }
     
     //check for hit on blade? or other object (call trace_vect on new)
     else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)){
         trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
+        std::cout << "into" << '\n';
     }
     
     //else return
-    else return;
+    
+    else {
+        std::cout << "no reflection bounces: " << bounce <<'\n';
+        return;
+    }
 }
 
 //updates the scene give params not sure yet.

@@ -102,6 +102,17 @@ void Blade_surface::fix_surface_normals(){
     
 }
 
+bool Blade_surface::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
+{
+    //need to make sure hits on triangles facing the opposite direction dont get hit!!
+    for (int i = 0; i < surface.size(); i++) {
+        if (surface[i].hit(ray, hitDistance, hitNormal, hitPoint)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Blade_surface::update_surface()
 {
     for ( int i = 0; i < surface.size(); i++) {

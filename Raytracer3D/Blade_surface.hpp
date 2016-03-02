@@ -37,6 +37,8 @@ public:
     void pitch_surface_X(const double angle);
     void height_surface_Z(const double height);
     
+    bool hit(const Ray3D& ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint);
+    
     std::vector<Rib> getRibs() const ;
     std::vector<Triangle> getSurface() const;
     std::vector<Point3D> getPoints() const;
