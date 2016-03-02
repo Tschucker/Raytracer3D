@@ -33,6 +33,7 @@ public:
     Sphere get_Boundary();
     double get_sampling_rate();
     std::vector<Ray3D> get_frame_data();
+    void save_ray_toFrame(Ray3D &ray);
     
 private:
     Sphere boundary;

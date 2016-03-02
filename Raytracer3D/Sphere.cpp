@@ -11,6 +11,7 @@
 
 #include "Sphere.hpp"
 #include <cmath>
+#include <iostream>
 
 #define EPSILON 0.0000001
 
@@ -29,10 +30,10 @@ bool Sphere::hit(const Ray3D &ray, double& hitDistance, Vector3D& hitNormal, Poi
 {
     //Math for hit on the sphere.
     double t;
-    Vector3D temp = ray.origin - center;
+    Vector3D temp(ray.origin - center);
     double a = ray.direction * ray.direction;
-    double b = 2 * temp * ray.direction;
-    double c = temp * temp - (radius * radius);
+    double b = 2 * (ray.direction * temp);
+    double c = (temp * temp) - (radius * radius);
     double disc = (b * b) - (4 * a * c);
     
     if (disc < 0) {
