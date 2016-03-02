@@ -49,11 +49,12 @@ int main(int argc, char **argv) {
     
     std::cout << "surface triangles: "<< Bsurface.getSurface().size()<< '\n';
     
-    
-    Transmitter tr;
+    /*
+    Transmitter tr(0, 10, 10, Point3D(0, 10, 0));
     for (int i = 0; i <20; i++) {
         tr.makeRay();
     }
+    */
     
     //Bounding_box bbox(Bsurface);
     
@@ -85,8 +86,20 @@ int main(int argc, char **argv) {
     
     //test scene generation.
     Scene s;
-    s.trace_scene(10);
+    s.trace_scene(20000000);
     
+    //test sphere hit
+    Point3D pt(0, 0, 10);
+    Sphere sp(1, pt);
+    
+    Ray3D testRay(Point3D(0, 10, 0), Vector3D(0, -5, 5));
+    double hitDistance;
+    Vector3D hitNormal;
+    Point3D hitPoint;
+    
+    if (sp.hit(testRay, hitDistance, hitNormal, hitPoint)) {
+        std::cout << "ray hit" << '\n';
+    }
 
     
     
