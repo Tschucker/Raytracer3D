@@ -98,7 +98,7 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     
     //determine specular reflection?
     
-    //create new ray.
+    //create new ray to trace.
     
     //check for hit on recever (return)
     if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {

@@ -17,6 +17,8 @@
 
 #endif /* Scene_hpp */
 
+#define SPEED_OF_LIGHT 299792458
+
 class Scene
 {
 public:
@@ -30,9 +32,23 @@ public:
     void trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint);
     void update();
     
+    double getDistancePower(const double frequency, const double power, const double distance) const;
+    
 private:
     Rotor rotor;
     Transmitter transmitter;
     Receiver receiver;
     
 };
+//Eric
+inline double Scene::getDistancePower(const double frequency, const double power, const double distance) const
+{
+    const double waveLength = SPEED_OF_LIGHT / frequency;
+    const double pathLossFactor = std::pow(waveLength / distance, 2);
+    if (pathLossFactor < 1.0)
+    {
+        return power * pathLossFactor;
+    }
+    
+    return power;
+}
