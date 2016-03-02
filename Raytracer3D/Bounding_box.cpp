@@ -37,8 +37,8 @@ Bounding_box::Bounding_box(Blade_surface& Bsurface){
 
 //for axis aligned
 Bounding_box::Bounding_box(std::vector<Point3D> points){
-    double x_min = 100, y_min = 100, z_min = 100;
-    double x_max = 0, y_max = 0, z_max = 0;
+    double x_min = 1000, y_min = 1000, z_min = 1000;
+    double x_max = -1000, y_max = -1000, z_max = -1000;
     
     for (int i = 0; i < points.size(); i++) {
         x_min = std::min(x_min, points[i].x());
