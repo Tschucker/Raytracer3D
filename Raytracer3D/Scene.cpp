@@ -18,10 +18,10 @@ Scene::Scene()
     rotor = Rotor(0, 1, 350, 100, 0, 5, 10);
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,100,0));
+    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,200,0));
     
-    //default receiver with id=0, Bandwidth=1Mhz, location= .5m below rotor height;
-    receiver = Receiver(0, 1000000, 1000000000, Point3D(0, 0, rotor.get_height() - .5), .1);
+    //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
+    receiver = Receiver(0, 1000000, 1000000000, Point3D(0, 0, rotor.get_height() - 2), 1);
     
 }
 
@@ -33,6 +33,8 @@ void Scene::trace_scene(int num_rays)
     
     //calc # of frames
     int number_of_frames = (2*M_PI)/update_angle;
+    
+    number_of_frames = 1;
     
     std::cout << "test: " << rotor.get_RPM() << '\n';
     
@@ -49,11 +51,13 @@ void Scene::trace_scene(int num_rays)
             Point3D hitPoint;
             //check collisions
             if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
-                //add to receiver data and break
+                //add to receiver data
                 
                 //need to power adjust
-                receiver.get_frame_data().push_back(test_ray);
+                receiver.save_ray_toFrame(test_ray);
+                
             }
+            
             else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)) {
                 //create new ray that has been doppler shifted and check receiver.
                 trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
@@ -66,6 +70,7 @@ void Scene::trace_scene(int num_rays)
         //update scene
         update();
     }
+    std::cout << "final recived: " << receiver.get_frame_data().size() << '\n';
 }
 
 void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
@@ -80,9 +85,9 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     Vector3D reflection = test_ray.direction - (2 * hitNormal) * (test_ray.direction * hitNormal);
     
     //determine how doppler is appled
-    
     if (hit_point_radius_perp*reflection > -EPSILON && hit_point_radius_perp*reflection < EPSILON) {
         //perpendicular to blade no doppler
+        
     }
     else if (hit_point_radius_perp*reflection > EPSILON) {
         //less than 90deg positive so positive doppler
