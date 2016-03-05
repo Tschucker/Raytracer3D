@@ -15,7 +15,7 @@ Rib::Rib()
 {
 }
 
-Rib::Rib(int id, const Rib& x, const double delta_l)
+Rib::Rib(int id, Rib& x, const double delta_l)
 {
     //shift all ponts in x axis by some ammount and generate new Rib
     this->id = id;
@@ -67,14 +67,14 @@ Rib::Rib(int id ,const std::string& filename)
 }
 
 // needs to be done before blade rotates!!!
-void Rib::pitch(const double angle)
+void Rib::pitch(double angle)
 {
     for (int i = 0; i<RibPoints.size(); i++) {
         RibPoints[i].rotate_X(angle);
     }
 }
 
-void Rib::rotate(const double angle)
+void Rib::rotate(double angle)
 {
     for (int i = 0; i<RibPoints.size(); i++) {
         RibPoints[i].rotate_Z(angle);
@@ -88,7 +88,7 @@ void Rib::height(const double height)
     }
 }
 
-std::vector<Point3D> Rib::getRibPoints() const
+std::vector<Point3D> Rib::getRibPoints()
 {
     return RibPoints;
 }

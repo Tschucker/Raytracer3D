@@ -16,7 +16,7 @@ Blade_surface::Blade_surface()
     
 }
 
-Blade_surface::Blade_surface(const int id, const double length, const int Rib_count, const Rib& origin_Rib):
+Blade_surface::Blade_surface(const int id, const double length, const int Rib_count, Rib& origin_Rib):
     id(id), length(length), Rib_count(Rib_count)
 {
     Ribs.push_back(origin_Rib);
@@ -33,11 +33,15 @@ Blade_surface::Blade_surface(const int id, const double length, const int Rib_co
             points.push_back(Ribs[i].getRibPoints()[j]);
         }
     }
+    //output points
+    /*
+    for (int i = 0; i < points.size(); i++) {
+        std::cout << points[i].x() << " " << points[i].y() << " " << points[i].z() << ";" << '\n';
+    }
+    */
     
     create_surface();
-    Bounding_box bbox(this->points);
-    box = bbox;
-    
+    box = Bounding_box(points);
     
 }
 
@@ -90,7 +94,8 @@ void Blade_surface::fix_surface_normals(){
                     Vector3D v;
                     Point3D p;
                     Ray3D testRay(surface[i+s*triangles_per_strip].centroid(), surface[i+s*triangles_per_strip].getNormal(),0,0);
-                    if (flipped==false && surface[j+s*triangles_per_strip].hit(testRay, h, v, p)) {
+                    //need to use no cull otherwise wont fix all normals.
+                    if (flipped==false && surface[j+s*triangles_per_strip].hitNoCull(testRay, h, v, p)) {
                         surface[i+s*triangles_per_strip].flipNormal();
                         flipped = true;
                         //TEST//std::cout << "flipped " << i + s*triangles_per_strip<< " hit  " << j+ s*triangles_per_strip << '\n';
@@ -118,6 +123,7 @@ void Blade_surface::update_surface()
     for ( int i = 0; i < surface.size(); i++) {
         surface[i].updateNormal();
     }
+    fix_surface_normals();
 }
 
 //in rad not sure which way yet
@@ -152,20 +158,18 @@ void Blade_surface::height_surface_Z(const double height)
 
 void Blade_surface::update_bounding_box()
 {
-    Bounding_box bbox(this->points);
-    box = bbox;
+    box = Bounding_box(points);
 }
 
-
-std::vector<Rib> Blade_surface::getRibs() const
+std::vector<Rib> Blade_surface::getRibs()
 {
     return Ribs;
 }
-std::vector<Triangle> Blade_surface::getSurface() const
+std::vector<Triangle> Blade_surface::getSurface()
 {
     return surface;
 }
-std::vector<Point3D> Blade_surface::getPoints() const
+std::vector<Point3D> Blade_surface::getPoints()
 {
     return points;
 }

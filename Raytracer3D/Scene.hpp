@@ -31,7 +31,7 @@ public:
     
     void trace_scene(int num_rays);
     void trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint);
-    void update();
+    void update(double angle);
     
     double getDistancePower(const double frequency, const double power, const double distance) const;
     double getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &hitPoint, double RPM) const;
@@ -43,12 +43,13 @@ private:
     
 };
 
+//FIX ME not giving negative negative dopplers....
 inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &hitPoint, double RPM) const
 {
-    //
+    //!!!!! doppler does not get affected by the normal, need to check this. not sure if this is correct.
     double frequency = test_ray.frequency;
     
-    //form vect in direction of rotation
+    //form vect in direction of rotation...?
     Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
     
     //find radial distance
@@ -59,6 +60,15 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     
     double omega_r = (2*M_PI/60)*RPM;
     double wave_length = SPEED_OF_LIGHT/frequency;
+    
+    //double perp = hit_point_radius_perp.normalized()*reflection.normalized();
+    
+    //std::cout << "reflection_vect: " <<"X: "<< reflection.x()<<" Y: "<< reflection.y() << " Z: " << reflection.z() << '\n';
+    std::cout << "hit_point: " <<"X: "<< hitPoint.x()<<" Y: "<< hitPoint.y() << " Z: " << hitPoint.z() << '\n';
+    
+    //std::cout << "velocity_vect: " <<"X: "<< hit_point_radius_perp.x()<<" Y: "<< hit_point_radius_perp.y() << " Z: " << hit_point_radius_perp.z() << '\n';
+    //std::cout << "dot: " <<perp <<'\n';
+    
     frequency = frequency + (((hit_point_radius_dist*omega_r)/wave_length)
         *(hit_point_radius_perp.normalized()*reflection.normalized()));
     

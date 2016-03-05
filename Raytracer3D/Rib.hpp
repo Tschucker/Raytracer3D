@@ -24,14 +24,14 @@ class Rib
 public:
     
     Rib();
-    explicit Rib(int id ,const Rib& x, const double delta_l);
+    explicit Rib(int id ,Rib& x, const double delta_l);
     explicit Rib(int id ,const std::string &filename);
     
     int id;
-    std::vector<Point3D> getRibPoints() const;
+    std::vector<Point3D> getRibPoints();
     
-    void pitch(const double angle);
-    void rotate(const double angle);
+    void pitch(double angle);
+    void rotate(double angle);
     void height(const double height);
     
 private:

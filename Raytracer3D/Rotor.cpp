@@ -24,7 +24,7 @@ Rotor::Rotor(const int id, const int num_blades, const double RPM, const double 
 {
     //create full rotor head using blade surface....
     const std::string rib_file = "/Users/tschucker/xcode projects/TestBlade/TestBlade/rib.txt";
-    const Rib rib_origin(0,rib_file);
+    Rib rib_origin(0,rib_file);
     
     double separation_dist = (2*M_PI)/num_blades;
     
@@ -68,11 +68,14 @@ bool Rotor::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Poin
     //iterate through blades and bounding boxes and return hit on triangle in mesh.
     for (int i = 0; i < Blades.size(); i++) {
         //check bounding box
-        if(Blades[i].getBox().hit(ray, hitPoint))
+        Point3D box_pt;
+        if(Blades[i].getBox().hit(ray, box_pt))
         {
             if(Blades[i].hit(ray, hitDistance, hitNormal, hitPoint))
             {
                 std::cout << "hit Rotor" <<'\n';
+                std::cout << "bbox_max: " << Blades[i].getBox().max_point.x() << " " << Blades[i].getBox().max_point.y() << " " << Blades[i].getBox().max_point.z() << '\n';
+                std::cout << "bbox_min: " << Blades[i].getBox().min_point.x() << " " << Blades[i].getBox().min_point.y() << " " << Blades[i].getBox().min_point.z() << '\n';
                 return true;
             }
         }

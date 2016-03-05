@@ -27,21 +27,21 @@ public:
     Rib origin_Rib;
     
     Blade_surface();
-    explicit Blade_surface(const int id, const double length, const int Rib_count, const Rib& origin_Rib);
+    explicit Blade_surface(const int id, const double length, const int Rib_count, Rib& origin_Rib);
     
     void create_surface();
     void update_surface();
     void update_bounding_box();
     
-    void rotate_surface_Z(const double angle);
+    void rotate_surface_Z(double angle);
     void pitch_surface_X(const double angle);
     void height_surface_Z(const double height);
     
     bool hit(const Ray3D& ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint);
     
-    std::vector<Rib> getRibs() const ;
-    std::vector<Triangle> getSurface() const;
-    std::vector<Point3D> getPoints() const;
+    std::vector<Rib> getRibs();
+    std::vector<Triangle> getSurface();
+    std::vector<Point3D> getPoints();
     
     Bounding_box getBox();
     

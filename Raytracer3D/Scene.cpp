@@ -19,10 +19,10 @@ Scene::Scene()
     rotor = Rotor(0, 1, 350, 12, 0, 5, 10);
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,10,0));
+    transmitter = Transmitter(0, 1000000000, 10, Point3D(10,10,10));
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 1000000, 1000000000, Point3D(0, 0, rotor.get_height() - 2), 1);
+    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), 1);
     
 }
 
@@ -30,12 +30,12 @@ Scene::Scene()
 void Scene::trace_scene(int num_rays)
 {
     //calc scene update params for each frame.
-    double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
-    
+    //double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
+    const double update_angle = M_PI/2;
     //calc # of frames
-    int number_of_frames = (2*M_PI)/update_angle;
+    int number_of_frames = (2*M_PI)/update_angle ;
     
-    number_of_frames = 1;
+    //number_of_frames = 1;
     
     std::cout << "test: " << rotor.get_RPM() << '\n';
     
@@ -45,6 +45,9 @@ void Scene::trace_scene(int num_rays)
     //iterate over the frames
     for (int i = 0; i < number_of_frames; i++) {
         //trace
+        std::cout << "new Frame: " << i << '\n';
+        //std::cout << "bbox_max: " << rotor.get_Blades()[0].getBox().max_point.x() << '\n';
+        //std::cout << "point_blade: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
         for (int j = 0; j < num_rays; j++) {
             Ray3D test_ray = transmitter.makeRay();
             double hitDistance;
@@ -65,16 +68,38 @@ void Scene::trace_scene(int num_rays)
                 trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
             }
         }
-        //collect data
         
         //aggrigate data and save to samples file.
         
+        
         //update scene
-        update();
+        
+        /*
+        std::cout << '\n';
+        
+        for (int j = 0; j < rotor.get_Blades()[0].getRibs().size(); j++) {
+            for (int k = 0; k < rotor.get_Blades()[0].getRibs()[j].getRibPoints().size(); k++) {
+                std::cout << "before_rib: " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].x() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].y() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].z() << '\n';
+            }
+        }
+         */
+        
+        update(update_angle);
+        
+        for (int j = 0; j < rotor.get_Blades()[0].getRibs().size(); j++) {
+            for (int k = 0; k < rotor.get_Blades()[0].getRibs()[j].getRibPoints().size(); k++) {
+                std::cout << "after_update: " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].x() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].y() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].z() << '\n';
+            }
+        }
+        
+        
+        
+        
     }
     std::cout << "final recived: " << receiver.get_frame_data().size() << '\n';
 }
 
+//recursive method
 void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
 {
     bounce++;
@@ -94,29 +119,30 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     //check for hit on recever (return)
     if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
         receiver.get_frame_data().push_back(test_ray);
-        std::cout << "reflected in!"<<'\n';
+        std::cout << "reflected in! " << "frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
         bounce = 0;
         return;
     }
     
     //check for hit on blade? or other object (call trace_vect on new)
     else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)){
+        std::cout << "into " <<"point: " << hitPoint.z() << '\n';
         trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
-        std::cout << "into" << '\n';
+        
     }
     
     //else return
-    
     else {
-        std::cout << "no reflection bounces: " << bounce <<'\n';
+        std::cout << "no reflection bounces: " << bounce << " frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
+        bounce = 0;
         return;
     }
 }
 
-//updates the scene give params not sure yet.
-void Scene::update()
+//updates the scene.
+void Scene::update(double angle)
 {
-    
+    rotor.rotate(angle);
 }
 
 Rotor Scene::get_rotor(){

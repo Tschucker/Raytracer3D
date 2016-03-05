@@ -22,7 +22,7 @@ public:
     Point3D max_point;
     
     Bounding_box();
-    explicit Bounding_box(std::vector<Point3D> points);
+    explicit Bounding_box(std::vector<Point3D>& points);
     
     
     bool hit(const Ray3D& ray, Point3D& hit_point) const;

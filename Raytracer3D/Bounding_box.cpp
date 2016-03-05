@@ -36,7 +36,8 @@ Bounding_box::Bounding_box(Blade_surface& Bsurface){
 */
 
 //for axis aligned
-Bounding_box::Bounding_box(std::vector<Point3D> points){
+Bounding_box::Bounding_box(std::vector<Point3D>& points)
+{    
     double x_min = 1000, y_min = 1000, z_min = 1000;
     double x_max = -1000, y_max = -1000, z_max = -1000;
     
