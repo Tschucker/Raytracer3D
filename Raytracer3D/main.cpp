@@ -25,20 +25,8 @@ int main(int argc, char **argv) {
     // insert code here... for testing
     std::cout << "Raytracer3D main test!\n";
     
-    Point3D x(1,0,0);
-    Point3D y(1,2,0);
-    Point3D z(0,0,0);
-    
-    Triangle t(x, y, z);
-    
-    t.getVertex0().translate_Z(10);
-    std::cout << t.getVertex0().x() << ' ' << t.getVertex0().y() << ' ' << t.getVertex0().z() << '\n';
-    t.getVertex1().translate_Z(10);
-    t.getVertex2().translate_Z(10);
-    
-    
     Scene s;
-    s.trace_scene(200000);
+    s.trace_scene(2000000);
     
     //test sphere hit
     Point3D pt(0, 0, 10);

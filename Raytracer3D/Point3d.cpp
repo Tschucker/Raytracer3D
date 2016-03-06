@@ -59,5 +59,5 @@ void Point3D::rotate_X(const double angle)
 void Point3D::translate_Z(const double height)
 {
     m_z = m_z + height;
-    std::cout << "height: " << m_z << '\n';
+    //std::cout << "height: " << m_z << '\n';
 }

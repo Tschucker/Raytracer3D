@@ -22,12 +22,6 @@ Rib::Rib(int id, Rib& x, const double delta_l)
     for (int i = 0; i <x.RibPoints.size(); i++) {
         RibPoints.push_back(Point3D(x.RibPoints[i].x() + delta_l, x.RibPoints[i].y(), x.RibPoints[i].z()));
     }
-    
-    /*//TEST//
-    for (int i = 0; i<RibPoints.size(); i++) {
-        std::cout <<"X: "<< RibPoints[i].x()<<" Y: "<< RibPoints[i].y() << " Z: " << RibPoints[i].z() << '\n';
-    }
-    */
 }
 
 Rib::Rib(int id ,const std::string& filename)
@@ -48,22 +42,11 @@ Rib::Rib(int id ,const std::string& filename)
             //format to mm -Y so airfoil shape is pointing the direction of positive rad ??
             RibPoints.push_back(Point3D(-.001*Y, .001*Z));
             
-            //TEST//std::cout << "Y: "<< Y << " Z: " << Z << '\n';
-            
         }
         myfile.close();
-        //std::cout << RibPoints.size() << '\n';
     }
     
     else std::cout << "Unable to open file \n";
-    
-    /*//TEST//
-    std::cout << "Test \n";
-    for (int i = 0; i<RibPoints.size(); i++) {
-        std::cout <<"X: "<< RibPoints[i].x()<<" Y: "<< RibPoints[i].y() << " Z: " << RibPoints[i].z() << '\n';
-    }
-    */
-    
 }
 
 // needs to be done before blade rotates!!!

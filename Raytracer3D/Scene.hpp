@@ -50,7 +50,7 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     double frequency = test_ray.frequency;
     
     //form vect in direction of rotation...?
-    Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
+    Vector3D hit_point_radius_perp(hitPoint.y(), -hitPoint.x(), 0);
     
     //find radial distance
     double hit_point_radius_dist = std::sqrt((hitPoint.x()*hitPoint.x()) + (hitPoint.y()*hitPoint.y()));
@@ -62,12 +62,9 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     double wave_length = SPEED_OF_LIGHT/frequency;
     
     //double perp = hit_point_radius_perp.normalized()*reflection.normalized();
-    
     //std::cout << "reflection_vect: " <<"X: "<< reflection.x()<<" Y: "<< reflection.y() << " Z: " << reflection.z() << '\n';
-    std::cout << "hit_point: " <<"X: "<< hitPoint.x()<<" Y: "<< hitPoint.y() << " Z: " << hitPoint.z() << '\n';
     
-    //std::cout << "velocity_vect: " <<"X: "<< hit_point_radius_perp.x()<<" Y: "<< hit_point_radius_perp.y() << " Z: " << hit_point_radius_perp.z() << '\n';
-    //std::cout << "dot: " <<perp <<'\n';
+    std::cout << "hit_point: " <<"X: "<< hitPoint.x()<<" Y: "<< hitPoint.y() << " Z: " << hitPoint.z() << '\n';
     
     frequency = frequency + (((hit_point_radius_dist*omega_r)/wave_length)
         *(hit_point_radius_perp.normalized()*reflection.normalized()));

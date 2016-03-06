@@ -31,14 +31,12 @@ void Scene::trace_scene(int num_rays)
 {
     //calc scene update params for each frame.
     //double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
+    
     const double update_angle = M_PI/2;
     //calc # of frames
     int number_of_frames = (2*M_PI)/update_angle ;
     
-    //number_of_frames = 1;
-    
     std::cout << "test: " << rotor.get_RPM() << '\n';
-    
     std::cout << "update angle: " << update_angle << '\n';
     std::cout << "number of frames: " << number_of_frames << '\n';
     
@@ -46,8 +44,10 @@ void Scene::trace_scene(int num_rays)
     for (int i = 0; i < number_of_frames; i++) {
         //trace
         std::cout << "new Frame: " << i << '\n';
+        
         //std::cout << "bbox_max: " << rotor.get_Blades()[0].getBox().max_point.x() << '\n';
         //std::cout << "point_blade: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
+        
         for (int j = 0; j < num_rays; j++) {
             Ray3D test_ray = transmitter.makeRay();
             double hitDistance;
@@ -71,32 +71,8 @@ void Scene::trace_scene(int num_rays)
         
         //aggrigate data and save to samples file.
         
-        
         //update scene
-        
-        /*
-        std::cout << '\n';
-        
-        for (int j = 0; j < rotor.get_Blades()[0].getRibs().size(); j++) {
-            for (int k = 0; k < rotor.get_Blades()[0].getRibs()[j].getRibPoints().size(); k++) {
-                std::cout << "before_rib: " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].x() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].y() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].z() << '\n';
-            }
-        }
-         */
-        
         update(update_angle);
-        
-        /*
-        for (int j = 0; j < rotor.get_Blades()[0].getRibs().size(); j++) {
-            for (int k = 0; k < rotor.get_Blades()[0].getRibs()[j].getRibPoints().size(); k++) {
-                std::cout << "after_update: " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].x() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].y() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].z() << '\n';
-            }
-        }
-         */
-        
-        
-        
-        
     }
     std::cout << "final recived: " << receiver.get_frame_data().size() << '\n';
 }
