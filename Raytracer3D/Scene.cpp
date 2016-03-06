@@ -18,11 +18,11 @@ Scene::Scene()
     //default rotor with id=0, num_blades=1, RPM=350, Height=100m, pitch=0, blade_length=5m, rib_count=10.
     rotor = Rotor(0, 1, 350, 12, M_PI/6, 5, 10);
     
-    //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 10, Point3D(10,10,0));
-    
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
     receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), 1);
+    
+    //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
+    transmitter = Transmitter(0, 1000000000, 10, Point3D(10,10,0));
     
 }
 

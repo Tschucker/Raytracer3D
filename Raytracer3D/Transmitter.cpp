@@ -37,6 +37,8 @@ void Transmitter::setPower(const double power)
     this->power = power;
 }
 
+//use circle underneath the blade rotation and recever
+
 //Marsaglia (1972) http://mathworld.wolfram.com/SpherePointPicking.html verified in matlab using scatter3(x,y,z).
 Ray3D Transmitter::makeRay()
 {
@@ -55,7 +57,7 @@ Ray3D Transmitter::makeRay()
     //place point on x,y,z coordinates of the sphere
     const double x = 2*x1*std::sqrt(1 - std::pow(x1, 2) - std::pow(x2, 2)); 
     const double y = 2*x2*std::sqrt(1 - std::pow(x1, 2) - std::pow(x2, 2));
-    const double z = 1 - (2*(std::pow(x1, 2) + std::pow(x2, 2)));
+    const double z = std::abs(1 - (2*(std::pow(x1, 2) + std::pow(x2, 2))));
     
     //TEST//std::cout << (std::pow(x - this->center.x(), 2) + std::pow(y - this->center.y(), 2) + std::pow(z - this->center.z(), 2))<<'\n';
     
