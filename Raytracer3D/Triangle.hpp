@@ -19,7 +19,7 @@ class Triangle
 {
 public:
     Triangle();
-    explicit Triangle(Point3D& v0, Point3D& v1, Point3D& v2);
+    explicit Triangle(Point3D &v0, Point3D &v1, Point3D &v2);
     
     bool hit(const Ray3D& ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint) const;
     bool hitNoCull(const Ray3D& ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint) const;
@@ -27,9 +27,9 @@ public:
     
     bool operator==(Triangle& Tri) ;
     
-    Point3D getVertex0() ;
-    Point3D getVertex1() ;
-    Point3D getVertex2() ;
+    Point3D getVertex0();
+    Point3D getVertex1();
+    Point3D getVertex2();
     
     Vector3D getNormal() const;
     void setNormal(const Vector3D &normal);
@@ -49,7 +49,7 @@ private:
 
 inline bool Triangle::operator==(Triangle& Tri)
 {
-    if((this->getVertex0()==Tri.getVertex0())&&(this->getVertex1()==Tri.getVertex1())&&(this->getVertex2()==Tri.getVertex2())){
+    if((getVertex0()==Tri.getVertex0())&&(getVertex1()==Tri.getVertex1())&&(getVertex2()==Tri.getVertex2())){
         return true;
     }
     else{

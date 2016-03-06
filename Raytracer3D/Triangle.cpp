@@ -19,7 +19,7 @@ v0(0.0, 0.0, 0.0), v1(1.0, 0.0, 0.0), v2(0.0, 1.0, 0.0)
     updateNormal();
 }
 
-Triangle::Triangle(Point3D& v0, Point3D& v1, Point3D& v2) :
+Triangle::Triangle(Point3D &v0, Point3D &v1, Point3D &v2) :
 v0(v0), v1(v1), v2(v2)
 {
     updateNormal();
