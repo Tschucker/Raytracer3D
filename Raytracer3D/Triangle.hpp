@@ -19,6 +19,7 @@ class Triangle
 {
 public:
     Triangle();
+    ~Triangle();
     explicit Triangle(Point3D &v0, Point3D &v1, Point3D &v2);
     
     bool hit(const Ray3D& ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint) const;

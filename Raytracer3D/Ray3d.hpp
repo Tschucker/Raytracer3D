@@ -24,6 +24,7 @@ public:
     //Color color;
     
     Ray3D();
+    ~Ray3D();
     explicit Ray3D(const Point3D& origin, const Vector3D& direction, const double power = 1.0,
                    const double frequency = 0.0); //const Color color = Color(255, 255, 255));
 };
