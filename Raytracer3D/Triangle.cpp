@@ -19,7 +19,7 @@ v0(0.0, 0.0, 0.0), v1(1.0, 0.0, 0.0), v2(0.0, 1.0, 0.0)
     updateNormal();
 }
 
-Triangle::Triangle(const Point3D& v0, const Point3D& v1, const Point3D& v2) :
+Triangle::Triangle(Point3D& v0, Point3D& v1, Point3D& v2) :
 v0(v0), v1(v1), v2(v2)
 {
     updateNormal();
@@ -114,17 +114,17 @@ Bounding_box Triangle::getBoundingBox() const
 }
 */
 
-Point3D Triangle::getVertex0() const
+Point3D Triangle::getVertex0()
 {
     return v0;
 }
 
-Point3D Triangle::getVertex1() const
+Point3D Triangle::getVertex1()
 {
     return v1;
 }
 
-Point3D Triangle::getVertex2() const
+Point3D Triangle::getVertex2()
 {
     return v2;
 }

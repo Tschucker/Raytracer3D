@@ -33,12 +33,6 @@ Blade_surface::Blade_surface(const int id, const double length, const int Rib_co
             points.push_back(Ribs[i].getRibPoints()[j]);
         }
     }
-    //output points
-    /*
-    for (int i = 0; i < points.size(); i++) {
-        std::cout << points[i].x() << " " << points[i].y() << " " << points[i].z() << ";" << '\n';
-    }
-    */
     
     create_surface();
     box = Bounding_box(points);
@@ -51,30 +45,19 @@ void Blade_surface::create_surface()
     
     for (int i = 0; i < Ribs.size() - 1; i++) {
         for( int j = 0; j < Ribs[i].getRibPoints().size(); j++){
-            //TEST//std::cout << &Ribs[i].getRibPoints()[j] << j << '\n';
             if (j + 1 == Ribs[i].getRibPoints().size()) {
                 nextPoint = 0;
             }
             else{
                 nextPoint = j+1;
             }
-            
             surface.push_back(Triangle(Ribs[i].getRibPoints()[j], Ribs[i].getRibPoints()[nextPoint], Ribs[i+1].getRibPoints()[j]));
             surface.push_back(Triangle(Ribs[i+1].getRibPoints()[j], Ribs[i+1].getRibPoints()[nextPoint], Ribs[i].getRibPoints()[nextPoint]));
         }
     }
     //adjust normals so that they all point outwards. (only look at triangles within the strip that the triangel is in.)
     fix_surface_normals();
-    
-    /* ///TEST////
-    for ( int i = 0; i < surface.size(); i++) {
-        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
-        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
-        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
-        std::cout << i << '\n'<< '\n';
-        
-    }
-     */
+
 }
 
 void Blade_surface::fix_surface_normals(){
@@ -104,7 +87,6 @@ void Blade_surface::fix_surface_normals(){
             }
         }
     }
-    
 }
 
 bool Blade_surface::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Point3D &hitPoint)
@@ -129,8 +111,28 @@ void Blade_surface::update_surface()
 //in rad not sure which way yet
 void Blade_surface::rotate_surface_Z(const double angle)
 {
+    /*
     for (int i = 0; i<Ribs.size(); i++) {
         Ribs[i].rotate(angle);
+    }
+    */
+    for (int i = 0; i < surface.size(); i++) {
+        std::cout << "Before rotate: " << '\n';
+        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
+        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
+        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
+        std::cout << i << '\n'<< '\n';
+        
+        surface[i].getVertex0().rotate_Z(angle);
+        surface[i].getVertex1().rotate_Z(angle);
+        surface[i].getVertex2().rotate_Z(angle);
+        
+        std::cout << "after rotate: " << '\n';
+        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
+        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
+        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
+        std::cout << i << '\n'<< '\n';
+        
     }
     update_surface();
     update_bounding_box();
@@ -139,8 +141,28 @@ void Blade_surface::rotate_surface_Z(const double angle)
 //only pitch before blade rotates !!! in rad
 void Blade_surface::pitch_surface_X(const double angle)
 {
+    /*
     for (int i = 0; i<Ribs.size(); i++) {
         Ribs[i].pitch(angle);
+    }
+    */
+    for (int i = 0; i < surface.size(); i++) {
+        std::cout << "Before pitch: " << '\n';
+        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
+        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
+        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
+        std::cout << i << '\n'<< '\n';
+        
+        surface[i].getVertex0().rotate_X(angle);
+        surface[i].getVertex1().rotate_X(angle);
+        surface[i].getVertex2().rotate_X(angle);
+        
+        std::cout << "after pitch: " << '\n';
+        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
+        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
+        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
+        std::cout << i << '\n'<< '\n';
+        
     }
     update_surface();
     update_bounding_box();
@@ -149,8 +171,28 @@ void Blade_surface::pitch_surface_X(const double angle)
 //translate after pitch.
 void Blade_surface::height_surface_Z(const double height)
 {
+    /*
     for (int i = 0; i<Ribs.size(); i++) {
         Ribs[i].height(height);
+    }
+    */
+    for (int i = 0; i < surface.size(); i++) {
+        std::cout << "Before height: " << '\n';
+        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
+        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
+        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
+        std::cout << i << '\n'<< '\n';
+        
+        surface[i].getVertex0().translate_Z(height);
+        surface[i].getVertex1().translate_Z(height);
+        surface[i].getVertex2().translate_Z(height);
+        
+        std::cout << "after height: " << '\n';
+        std::cout << surface[i].getVertex0().x() << ' ' << surface[i].getVertex0().y() << ' ' << surface[i].getVertex0().z() << '\n';
+        std::cout << surface[i].getVertex1().x() << ' ' << surface[i].getVertex1().y() << ' ' << surface[i].getVertex1().z() << '\n';
+        std::cout << surface[i].getVertex2().x() << ' ' << surface[i].getVertex2().y() << ' ' << surface[i].getVertex2().z() << '\n';
+        std::cout << i << '\n'<< '\n';
+        
     }
     update_surface();
     update_bounding_box();

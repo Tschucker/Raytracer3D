@@ -86,11 +86,13 @@ void Scene::trace_scene(int num_rays)
         
         update(update_angle);
         
+        /*
         for (int j = 0; j < rotor.get_Blades()[0].getRibs().size(); j++) {
             for (int k = 0; k < rotor.get_Blades()[0].getRibs()[j].getRibPoints().size(); k++) {
                 std::cout << "after_update: " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].x() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].y() << " " << rotor.get_Blades()[0].getRibs()[j].getRibPoints()[k].z() << '\n';
             }
         }
+         */
         
         
         
