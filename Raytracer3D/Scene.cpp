@@ -73,6 +73,7 @@ void Scene::trace_scene(int num_rays)
         }
         
         //aggrigate data and save to samples file.
+        receiver.save_to_file();
         
         //update scene
         update(update_angle);
@@ -119,6 +120,8 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
         return;
     }
 }
+
+
 
 //updates the scene.
 void Scene::update(double angle)

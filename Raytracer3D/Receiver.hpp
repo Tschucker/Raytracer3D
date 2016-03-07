@@ -34,11 +34,13 @@ public:
     double get_sampling_rate();
     std::vector<Ray3D> get_frame_data();
     void save_ray_toFrame(Ray3D &ray);
+    void save_to_file();
     
 private:
     Sphere boundary;
     std::vector<Ray3D> frame_data;
     double sampling_rate;
+    const std::string& savefile;
 };
 
 

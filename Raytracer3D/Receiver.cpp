@@ -42,3 +42,7 @@ std::vector<Ray3D> Receiver::get_frame_data()
 void Receiver::save_ray_toFrame(Ray3D &ray){
     frame_data.push_back(ray);
 }
+
+void Receiver::save_to_file(){
+    
+}
