@@ -17,8 +17,8 @@ origin(0, 0, 0), direction(0, 0, .5), power(1.0), frequency(0.0)
 }
 
 Ray3D::Ray3D(const Point3D& origin, const Vector3D& direction, const double power,
-             const double frequency) :
-origin(origin), direction(direction), power(power), frequency(frequency)
+             const double frequency, const double distance) :
+origin(origin), direction(direction), power(power), frequency(frequency), distance(distance)
 {
 }
 

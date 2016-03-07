@@ -14,6 +14,13 @@
 #include <stdio.h>
 #include "Point3d.hpp"
 #include "Sphere.hpp"
+#include <fstream>
+#include <cmath>
+#include <algorithm>
+#include <complex>
+#include <iostream>
+
+#define SPEED_OF_LIGHT 299792458
 
 class Receiver
 {
@@ -40,6 +47,7 @@ private:
     Sphere boundary;
     std::vector<Ray3D> frame_data;
     double sampling_rate;
+    std::string file;
 };
 
 

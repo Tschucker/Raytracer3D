@@ -19,7 +19,7 @@ Scene::Scene()
     rotor = Rotor(0, 1, 350, 12, 0, 5, 10);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5, "/Users/tschucker/xcode projects/TestBlade/TestBlade/rx.txt");
+    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5, "/Users/tschucker/xcode projects/Raytracer3D/rx.txt");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
     transmitter = Transmitter(0, 1000000000, 10, Point3D(0,0,0), 5);
@@ -32,7 +32,7 @@ void Scene::trace_scene(int num_rays)
     //calc scene update params for each frame.
     //double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
     
-    const double update_angle = M_PI/2;
+    const double update_angle = M_PI/50;
     //calc # of frames
     int number_of_frames = (2*M_PI)/update_angle ;
     
@@ -43,7 +43,7 @@ void Scene::trace_scene(int num_rays)
     //iterate over the frames
     for (int i = 0; i < number_of_frames; i++) {
         //trace
-        //std::cout << "new Frame: " << i << '\n';
+        std::cout << "new Frame: " << i << '\n';
         
         //std::cout << "bbox_max: " << rotor.get_Blades()[0].getBox().max_point.x() << '\n';
         //std::cout << "point_blade: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
@@ -94,8 +94,9 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     test_ray.origin = hitPoint;
     test_ray.direction = reflection;
     test_ray.frequency = getDoppler(test_ray, hitNormal, hitPoint, rotor.get_RPM());
+    test_ray.distance = test_ray.distance + hitDistance;
     
-    //determine specular reflection?
+    //determine specular reflection needed not enough information otherwise.
     
     
     //check for hit on recever (return)

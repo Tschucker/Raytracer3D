@@ -49,6 +49,7 @@ bool Sphere::hit(const Ray3D &ray, double& hitDistance, Vector3D& hitNormal, Poi
             //tmin = t;
             hitNormal = (temp + (t * ray.direction));
             hitPoint = ray.origin + t * ray.direction;
+            hitDistance = ray.origin.distance(hitPoint);
             return true;
         }
         
@@ -58,6 +59,7 @@ bool Sphere::hit(const Ray3D &ray, double& hitDistance, Vector3D& hitNormal, Poi
             //tmin = t;
             hitNormal = (temp + (t * ray.direction));
             hitPoint = ray.origin + t * ray.direction;
+            hitDistance = ray.origin.distance(hitPoint);
             return true;
         }
         

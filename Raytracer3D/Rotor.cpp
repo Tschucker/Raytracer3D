@@ -23,7 +23,7 @@ Rotor::Rotor(const int id, const int num_blades, const double RPM, const double 
     Rib_count(Rib_count)
 {
     //create full rotor head using blade surface....
-    const std::string rib_file = "/Users/tschucker/xcode projects/TestBlade/TestBlade/rib.txt";
+    const std::string rib_file = "/Users/tschucker/xcode projects/Raytracer3D/rib.txt";
     Rib rib_origin(0,rib_file);
     
     double separation_dist = (2*M_PI)/num_blades;

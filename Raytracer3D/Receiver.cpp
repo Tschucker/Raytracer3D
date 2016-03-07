@@ -20,6 +20,11 @@ Receiver::Receiver(const int id, const double Bandwidth, const double center_fre
     id(id), Bandwidth(Bandwidth), center_freq(center_freq), center(center), boundary_radius(boundary_radius)
 {
     boundary = Sphere(boundary_radius, center);
+    file = savefile_name;
+    std::ofstream myfile;
+    myfile.open (file);
+    myfile << "%RX data " << '\n';
+    myfile.close();
 }
 
 Sphere Receiver::get_Boundary()
@@ -43,5 +48,23 @@ void Receiver::save_ray_toFrame(Ray3D &ray){
 }
 
 void Receiver::save_to_file(){
+    double amplitude;
+    double omega;
+    double t;
+    std::complex<double> sample;
     
+    std::ofstream myfile;
+    myfile.open (file, std::ios_base::app);
+    for (int i = 0; i < frame_data.size(); i++) {
+        //
+        amplitude = std::sqrt(frame_data[i].power);
+        omega = 2.0 * M_PI * (frame_data[i].frequency - center_freq);
+        //std::cout << omega << '\n';
+        t = frame_data[i].distance / SPEED_OF_LIGHT;
+        sample = sample + amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));
+    }
+    
+    myfile << sample << '\n';
+    myfile.close();
+    frame_data.clear();
 }
