@@ -10,14 +10,13 @@
 
 #include "Receiver.hpp"
 
-Receiver::Receiver() :
-    Receiver(-1,0,0, Point3D(0,0,0), 1)
+Receiver::Receiver()
 {
-    
+
 }
 
 Receiver::Receiver(const int id, const double Bandwidth, const double center_freq,
-                   const Point3D& center, const double boundary_radius) :
+                   const Point3D& center, const double boundary_radius, const std::string& savefile_name) :
     id(id), Bandwidth(Bandwidth), center_freq(center_freq), center(center), boundary_radius(boundary_radius)
 {
     boundary = Sphere(boundary_radius, center);

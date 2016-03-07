@@ -28,7 +28,7 @@ public:
     
     Receiver();
     explicit Receiver(const int id, const double Bandwidth, const double center_freq,
-                      const Point3D& center, const double boundary_radius);
+                      const Point3D& center, const double boundary_radius,const std::string& savefile_name);
     
     Sphere get_Boundary();
     double get_sampling_rate();
@@ -40,7 +40,6 @@ private:
     Sphere boundary;
     std::vector<Ray3D> frame_data;
     double sampling_rate;
-    const std::string& savefile;
 };
 
 

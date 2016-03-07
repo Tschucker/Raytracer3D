@@ -19,7 +19,7 @@ Scene::Scene()
     rotor = Rotor(0, 1, 350, 12, 0, 5, 10);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5);
+    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5, "/Users/tschucker/xcode projects/TestBlade/TestBlade/rx.txt");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
     transmitter = Transmitter(0, 1000000000, 10, Point3D(0,0,0), 5);
