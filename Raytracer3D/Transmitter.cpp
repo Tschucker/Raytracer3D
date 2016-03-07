@@ -37,7 +37,7 @@ void Transmitter::setPower(const double power)
     this->power = power;
 }
 
-//use circle underneath the blade rotation and recever
+//use circle underneath the blade rotation and recever http://mathworld.wolfram.com/DiskPointPicking.html
 Ray3D Transmitter::makeRay_disk(const double height)
 {
     Vector3D direction = Point3D(0,0,height) - center;
