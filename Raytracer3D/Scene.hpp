@@ -64,7 +64,8 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     //double perp = hit_point_radius_perp.normalized()*reflection.normalized();
     //std::cout << "reflection_vect: " <<"X: "<< reflection.x()<<" Y: "<< reflection.y() << " Z: " << reflection.z() << '\n';
     
-    std::cout << "hit_point: " <<"X: "<< hitPoint.x()<<" Y: "<< hitPoint.y() << " Z: " << hitPoint.z() << '\n';
+    //std::cout << "hit_point: " <<"X: "<< hitPoint.x()<<" Y: "<< hitPoint.y() << " Z: " << hitPoint.z() << '\n';
+    //std::cout << hitPoint.x() << " " << hitPoint.y() << " " << hitPoint.z() << ";" << '\n';
     
     frequency = frequency + (((hit_point_radius_dist*omega_r)/wave_length)
         *(hit_point_radius_perp.normalized()*reflection.normalized()));

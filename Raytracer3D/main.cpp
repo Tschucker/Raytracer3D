@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     std::cout << "Raytracer3D main test!\n";
     
     Scene s;
-    s.trace_scene(20000000);
+    s.trace_scene(100000);
     
     //test sphere hit
     Point3D pt(0, 0, 10);
@@ -97,9 +97,9 @@ int main(int argc, char **argv) {
     //std::cout << "surface triangles: "<< Bsurface.getSurface().size()<< '\n';
     
     /*
-    Transmitter tr(0, 10, 10, Point3D(0, 0, 0));
+    Transmitter tr(0, 10, 10, Point3D(5, 5, 0), 5);
     for (int i = 0; i <2000; i++) {
-        tr.makeRay();
+        tr.makeRay_disk(12);
     }
     */
     

@@ -16,13 +16,13 @@
 std::mt19937 generator;
 
 Transmitter::Transmitter() :
-    Transmitter(-1, 0, 0, Point3D(0,0,0))
+    Transmitter(-1, 0, 0, Point3D(0,0,0), 1)
 {
     rayDirectionDistribution = std::uniform_real_distribution<double>(-1, 1);
 }
 
-Transmitter::Transmitter(const int id, const double frequency, const double power, const Point3D& center) :
-    id(id),frequency(frequency),power(power),center(center),rayDirectionDistribution(-1,1)
+Transmitter::Transmitter(const int id, const double frequency, const double power, const Point3D& center, const double r) :
+    id(id),frequency(frequency),power(power),center(center),rayDirectionDistribution(-1,1),rayDirectionDistribution_r(0,r),rayDirectionDistribution_theta(0,2*M_PI)
 {
     
 }
@@ -38,6 +38,21 @@ void Transmitter::setPower(const double power)
 }
 
 //use circle underneath the blade rotation and recever
+Ray3D Transmitter::makeRay_disk(const double height)
+{
+    Vector3D direction = Point3D(0,0,height) - center;
+    //direction = direction.normalized();
+    
+    double r = rayDirectionDistribution_r(generator);
+    double theta = rayDirectionDistribution_theta(generator);
+    
+    const double x = std::sqrt(r)*std::cos(theta) + direction.x();
+    const double y = std::sqrt(r)*std::sin(theta) + direction.y();
+    const double z = 0 + direction.z();
+    
+    //TEST//std::cout << x << " " << y << " " << z << ";" << '\n';
+    return makeRay(Vector3D(x, y, z));
+}
 
 //Marsaglia (1972) http://mathworld.wolfram.com/SpherePointPicking.html verified in matlab using scatter3(x,y,z).
 Ray3D Transmitter::makeRay()

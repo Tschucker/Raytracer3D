@@ -27,17 +27,21 @@ public:
     double power;
     
     Transmitter();
-    explicit Transmitter(const int id, const double frequency, const double power, const Point3D& center);
+    explicit Transmitter(const int id, const double frequency, const double power, const Point3D& center, const double r);
     
     void setPower(const double power);
     double getPower() const;
     
     Ray3D makeRay();
+    Ray3D makeRay_disk(const double height);
     Ray3D makeRay(const Vector3D &rayDirection);
     
 private:
     //std::vector<Ray3D> Rays; //not sure if i need this still
     std::uniform_real_distribution<double> rayDirectionDistribution;
+    
+    std::uniform_real_distribution<double> rayDirectionDistribution_r;
+    std::uniform_real_distribution<double> rayDirectionDistribution_theta;
     
 };
 

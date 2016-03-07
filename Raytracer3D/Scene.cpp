@@ -16,13 +16,13 @@ Scene::Scene()
     //create all objects for the scene
     
     //default rotor with id=0, num_blades=1, RPM=350, Height=100m, pitch=0, blade_length=5m, rib_count=10.
-    rotor = Rotor(0, 1, 350, 12, M_PI/6, 5, 10);
+    rotor = Rotor(0, 1, 350, 12, 0, 5, 10);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), 1);
+    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5);
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 10, Point3D(10,10,0));
+    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,0,0), 5);
     
 }
 
@@ -43,13 +43,13 @@ void Scene::trace_scene(int num_rays)
     //iterate over the frames
     for (int i = 0; i < number_of_frames; i++) {
         //trace
-        std::cout << "new Frame: " << i << '\n';
+        //std::cout << "new Frame: " << i << '\n';
         
         //std::cout << "bbox_max: " << rotor.get_Blades()[0].getBox().max_point.x() << '\n';
         //std::cout << "point_blade: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
         
         for (int j = 0; j < num_rays; j++) {
-            Ray3D test_ray = transmitter.makeRay();
+            Ray3D test_ray = transmitter.makeRay_disk(rotor.get_height());
             double hitDistance;
             Vector3D hitNormal;
             Point3D hitPoint;
@@ -100,21 +100,21 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     //check for hit on recever (return)
     if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
         receiver.get_frame_data().push_back(test_ray);
-        std::cout << "reflected in! " << "frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
+        //std::cout << "reflected in! " << "frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
         bounce = 0;
         return;
     }
     
     //check for hit on blade? or other object (call trace_vect on new)
     else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)){
-        std::cout << "into " <<"point: " << hitPoint.z() << '\n';
+        //std::cout << "into " <<"point: " << hitPoint.z() << '\n';
         trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
         
     }
     
     //else return
     else {
-        std::cout << "no reflection bounces: " << bounce << " frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
+        //std::cout << "no reflection bounces: " << bounce << " frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
         bounce = 0;
         return;
     }

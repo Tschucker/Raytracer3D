@@ -73,9 +73,9 @@ bool Rotor::hit(const Ray3D &ray, double &hitDistance, Vector3D &hitNormal, Poin
         {
             if(Blades[i].hit(ray, hitDistance, hitNormal, hitPoint))
             {
-                std::cout << "hit Rotor" <<'\n';
-                std::cout << "bbox_max: " << Blades[i].getBox().max_point.x() << " " << Blades[i].getBox().max_point.y() << " " << Blades[i].getBox().max_point.z() << '\n';
-                std::cout << "bbox_min: " << Blades[i].getBox().min_point.x() << " " << Blades[i].getBox().min_point.y() << " " << Blades[i].getBox().min_point.z() << '\n';
+                //std::cout << "hit Rotor" <<'\n';
+                //std::cout << "bbox_max: " << Blades[i].getBox().max_point.x() << " " << Blades[i].getBox().max_point.y() << " " << Blades[i].getBox().max_point.z() << '\n';
+                //std::cout << "bbox_min: " << Blades[i].getBox().min_point.x() << " " << Blades[i].getBox().min_point.y() << " " << Blades[i].getBox().min_point.z() << '\n';
                 return true;
             }
         }
