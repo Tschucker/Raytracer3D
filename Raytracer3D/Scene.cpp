@@ -16,13 +16,13 @@ Scene::Scene()
     //create all objects for the scene
     
     //default rotor with id=0, num_blades=1, RPM=350, Height=100m, pitch=0, blade_length=5m, rib_count=10.
-    rotor = Rotor(0, 1, 350, 12, 0, 5, 10);
+    rotor = Rotor(0, 1, 400, 100, 0, 7.5, 20);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 10, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5, "/Users/tschucker/xcode projects/Raytracer3D/rx.txt");
+    receiver = Receiver(0, 5000, 1000000000, Point3D(0, 0, rotor.get_height() - 2), .5, "/Users/tschucker/xcode projects/Raytracer3D/rx.txt");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 10, Point3D(0,0,0), 5);
+    transmitter = Transmitter(0, 1000000000, 10, Point3D(50,50,0), 5);
     
 }
 
@@ -30,11 +30,10 @@ Scene::Scene()
 void Scene::trace_scene(int num_rays)
 {
     //calc scene update params for each frame.
-    //double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
+    double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
     
-    const double update_angle = M_PI/50;
     //calc # of frames
-    int number_of_frames = (2*M_PI)/update_angle ;
+    int number_of_frames = (4*M_PI)/update_angle ;
     
     std::cout << "test: " << rotor.get_RPM() << '\n';
     std::cout << "update angle: " << update_angle << '\n';
@@ -45,19 +44,16 @@ void Scene::trace_scene(int num_rays)
         //trace
         std::cout << "new Frame: " << i << '\n';
         
-        //std::cout << "bbox_max: " << rotor.get_Blades()[0].getBox().max_point.x() << '\n';
-        //std::cout << "point_blade: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
-        
         for (int j = 0; j < num_rays; j++) {
             Ray3D test_ray = transmitter.makeRay_disk(rotor.get_height());
             double hitDistance;
             Vector3D hitNormal;
             Point3D hitPoint;
+            
             //check collisions
             if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
                 //add to receiver data
-                
-                //need to power adjust
+                test_ray.power = getDistancePower(test_ray.frequency, test_ray.power, hitDistance);
                 receiver.save_ray_toFrame(test_ray);
                 bounce = 0;
                 
@@ -96,33 +92,47 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     test_ray.frequency = getDoppler(test_ray, hitNormal, hitPoint, rotor.get_RPM());
     test_ray.distance = test_ray.distance + hitDistance;
     
-    //determine specular reflection needed not enough information otherwise.
-    
-    
     //check for hit on recever (return)
     if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
-        receiver.get_frame_data().push_back(test_ray);
-        //std::cout << "reflected in! " << "frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
+        receiver.save_ray_toFrame(test_ray);
         bounce = 0;
         return;
     }
     
     //check for hit on blade? or other object (call trace_vect on new)
     else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)){
-        //std::cout << "into " <<"point: " << hitPoint.z() << '\n';
+        
+        //determine specular reflection.
+        Vector3D spec(test_ray.origin - receiver.center);
+        double angle = std::acos( test_ray.direction.normalized()*spec.normalized());
+        if (angle < M_PI/2)
+        {
+            double power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 2);
+            Ray3D spec_ray(test_ray.origin, spec, power, test_ray.frequency, test_ray.distance + test_ray.origin.distance(receiver.center));
+            receiver.save_ray_toFrame(spec_ray);
+        }
+        
+        //recursive call of trace vector.
         trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
         
     }
     
     //else return
     else {
-        //std::cout << "no reflection bounces: " << bounce << " frequency shift: "<< test_ray.frequency - receiver.center_freq<<'\n';
+        //determine specular reflection.
+        Vector3D spec(test_ray.origin - receiver.center);
+        double angle = std::acos( test_ray.direction.normalized()*spec.normalized());
+        if (angle < M_PI/2)
+        {
+            double power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 2);
+            Ray3D spec_ray(test_ray.origin, spec, power, test_ray.frequency, test_ray.distance + test_ray.origin.distance(receiver.center));
+            receiver.save_ray_toFrame(spec_ray);
+        }
+        
         bounce = 0;
         return;
     }
 }
-
-
 
 //updates the scene.
 void Scene::update(double angle)

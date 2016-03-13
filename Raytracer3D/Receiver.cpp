@@ -24,6 +24,7 @@ Receiver::Receiver(const int id, const double Bandwidth, const double center_fre
     std::ofstream myfile;
     myfile.open (file);
     myfile << "%RX data " << '\n';
+    myfile << "samples = [";
     myfile.close();
 }
 
@@ -53,18 +54,20 @@ void Receiver::save_to_file(){
     double t;
     std::complex<double> sample;
     
+    std::sort(frame_data.begin(), frame_data.end(),
+              [] (Ray3D const& a, Ray3D const& b) { return a.distance < b.distance; });
+    
     std::ofstream myfile;
     myfile.open (file, std::ios_base::app);
     for (int i = 0; i < frame_data.size(); i++) {
-        //
         amplitude = std::sqrt(frame_data[i].power);
         omega = 2.0 * M_PI * (frame_data[i].frequency - center_freq);
-        //std::cout << omega << '\n';
+        //std::cout << omega << " " << amplitude << " " << frame_data[i].frequency - center_freq << '\n';
         t = frame_data[i].distance / SPEED_OF_LIGHT;
-        sample = sample + amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));
+        sample = amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));
+        myfile << "complex" << sample << ";" << '\n';
     }
     
-    myfile << sample << '\n';
     myfile.close();
     frame_data.clear();
 }

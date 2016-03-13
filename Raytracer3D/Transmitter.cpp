@@ -41,7 +41,6 @@ void Transmitter::setPower(const double power)
 Ray3D Transmitter::makeRay_disk(const double height)
 {
     Vector3D direction = Point3D(0,0,height) - center;
-    //direction = direction.normalized();
     
     double r = rayDirectionDistribution_r(generator);
     double theta = rayDirectionDistribution_theta(generator);
@@ -60,6 +59,7 @@ Ray3D Transmitter::makeRay()
     double x1 = rayDirectionDistribution(generator);
     double x2 = rayDirectionDistribution(generator);
     double pointReject = std::pow(x1, 2) + std::pow(x2, 2);
+    
     //reject and regenerate any 2 points that follow the condition x1^2 + x2^2 >= 1;
     while (pointReject >= 1) {
         x1 = rayDirectionDistribution(generator);
@@ -67,14 +67,10 @@ Ray3D Transmitter::makeRay()
         pointReject = std::pow(x1, 2) + std::pow(x2, 2);
     }
     
-    //TEST//std::cout << x1 << " " << x2 <<'\n';
-    
     //place point on x,y,z coordinates of the sphere
     const double x = 2*x1*std::sqrt(1 - std::pow(x1, 2) - std::pow(x2, 2)); 
     const double y = 2*x2*std::sqrt(1 - std::pow(x1, 2) - std::pow(x2, 2));
     const double z = std::abs(1 - (2*(std::pow(x1, 2) + std::pow(x2, 2))));
-    
-    //TEST//std::cout << (std::pow(x - this->center.x(), 2) + std::pow(y - this->center.y(), 2) + std::pow(z - this->center.z(), 2))<<'\n';
     
     //TEST//std::cout << x << " " << y << " " << z << ";" << '\n';
     return makeRay(Vector3D(x, y, z));

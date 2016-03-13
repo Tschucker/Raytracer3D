@@ -74,19 +74,20 @@ void Blade_surface::fix_surface_normals(){
         for (int i = 0; i < triangles_per_strip; i++) {
             bool flipped = false;
             for (int j = 0; j < triangles_per_strip; j++) {
-                if (surface[i+s*triangles_per_strip] == surface[j+s*triangles_per_strip]) {
-                    //TEST//std::cout << "same " << i+ s*triangles_per_strip << '\n';
+                if (surface[i+s*triangles_per_strip] == surface[j+s*triangles_per_strip])
+                {
+                    
                 }
                 else{
                     double h;
                     Vector3D v;
                     Point3D p;
                     Ray3D testRay(surface[i+s*triangles_per_strip].centroid(), surface[i+s*triangles_per_strip].getNormal(),0,0);
+                    
                     //need to use no cull otherwise wont fix all normals.
                     if (flipped==false && surface[j+s*triangles_per_strip].hitNoCull(testRay, h, v, p)) {
                         surface[i+s*triangles_per_strip].flipNormal();
                         flipped = true;
-                        //TEST//std::cout << "flipped " << i + s*triangles_per_strip<< " hit  " << j+ s*triangles_per_strip << '\n';
                     }
                 }
             }

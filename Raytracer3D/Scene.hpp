@@ -43,7 +43,6 @@ private:
     
 };
 
-//FIX ME not giving negative negative dopplers....
 inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &hitPoint, double RPM) const
 {
     //!!!!! doppler does not get affected by the normal, need to check this. not sure if this is correct.
@@ -60,12 +59,6 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     
     double omega_r = (2*M_PI/60)*RPM;
     double wave_length = SPEED_OF_LIGHT/frequency;
-    
-    //double perp = hit_point_radius_perp.normalized()*reflection.normalized();
-    //std::cout << "reflection_vect: " <<"X: "<< reflection.x()<<" Y: "<< reflection.y() << " Z: " << reflection.z() << '\n';
-    
-    //std::cout << "hit_point: " <<"X: "<< hitPoint.x()<<" Y: "<< hitPoint.y() << " Z: " << hitPoint.z() << '\n';
-    //std::cout << hitPoint.x() << " " << hitPoint.y() << " " << hitPoint.z() << ";" << '\n';
     
     frequency = frequency + (((hit_point_radius_dist*omega_r)/wave_length)
         *(hit_point_radius_perp.normalized()*reflection.normalized()));

@@ -23,5 +23,5 @@ origin(origin), direction(direction), power(power), frequency(frequency), distan
 }
 
 Ray3D::~Ray3D(){
-    //std::cout << "ray distruct:" << '\n';
+
 }
