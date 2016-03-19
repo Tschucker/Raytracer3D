@@ -40,7 +40,7 @@ Rib::Rib(int id ,const std::string& filename)
             double Y = std::stod (line,&sz);
             double Z = std::stod (line.substr(sz));
             //format to mm -Y so airfoil shape is pointing the direction of positive rad ??
-            RibPoints.push_back(Point3D(-.001*Y, .001*Z));
+            RibPoints.push_back(Point3D(-.01*Y, .001*Z));
             
         }
         myfile.close();

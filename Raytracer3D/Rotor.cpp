@@ -35,6 +35,7 @@ Rotor::Rotor(const int id, const int num_blades, const double RPM, const double 
         Blades[i].height_surface_Z(height);
     }
     
+    
 }
 
 void Rotor::rotate(const double angle){

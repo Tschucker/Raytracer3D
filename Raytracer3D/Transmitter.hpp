@@ -27,7 +27,7 @@ public:
     double power;
     
     Transmitter();
-    explicit Transmitter(const int id, const double frequency, const double power, const Point3D& center, const double r);
+    explicit Transmitter(const int id, const double frequency, const double power, const Point3D& center, const double l);
     
     void setPower(const double power);
     double getPower() const;

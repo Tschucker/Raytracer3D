@@ -23,8 +23,6 @@ Receiver::Receiver(const int id, const double Bandwidth, const double center_fre
     file = savefile_name;
     std::ofstream myfile;
     myfile.open (file);
-    myfile << "%RX data " << '\n';
-    myfile << "samples = [";
     myfile.close();
 }
 
@@ -52,6 +50,9 @@ void Receiver::save_to_file(){
     double amplitude;
     double omega;
     double t;
+    double cos_d;
+    double sin_d;
+    const double t_s = 1 / Bandwidth;
     std::complex<double> sample;
     
     std::sort(frame_data.begin(), frame_data.end(),
@@ -62,12 +63,30 @@ void Receiver::save_to_file(){
     for (int i = 0; i < frame_data.size(); i++) {
         amplitude = std::sqrt(frame_data[i].power);
         omega = 2.0 * M_PI * (frame_data[i].frequency - center_freq);
-        //std::cout << omega << " " << amplitude << " " << frame_data[i].frequency - center_freq << '\n';
         t = frame_data[i].distance / SPEED_OF_LIGHT;
+        
         sample = amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));
-        myfile << "complex" << sample << ";" << '\n';
+        if (sample.imag() < 0) {
+            myfile << sample.real() << sample.imag() << "i" << ",";
+        }
+        else
+            myfile << sample.real() << "+" << sample.imag() << "i" << ",";
+        
+        //
+        cos_d = std::cos(omega * t_s);
+        sin_d = std::sin(omega * t_s);
+        for (int j = 0; j < 100; ++j)
+        {
+            sample = std::complex<double>(sample.real() * cos_d - sample.imag() * sin_d,
+                                          sample.imag() * cos_d + sample.real() * sin_d);
+            if (sample.imag() < 0) {
+                myfile << sample.real() << sample.imag() << "i" << ",";
+            }
+            else
+                myfile << sample.real() << "+" << sample.imag() << "i" << "," ;
+        }
+        
     }
-    
     myfile.close();
     frame_data.clear();
 }
