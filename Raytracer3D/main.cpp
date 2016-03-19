@@ -26,8 +26,9 @@ int main(int argc, char **argv) {
     std::cout << "Raytracer3D main test!\n";
     
     Scene s;
-    s.trace_scene(200000);
+    s.trace_scene(1000);
     
+    /*
     //test sphere hit
     Point3D pt(0, 0, 10);
     Sphere sp(1, pt);
@@ -40,7 +41,39 @@ int main(int argc, char **argv) {
     if (sp.hit(testRay, hitDistance, hitNormal, hitPoint)) {
         std::cout << "ray hit test succeed" << '\n';
     }
+    */
+    /*
+    //output blade points for matlab
+    std::ofstream blade_vertex_file;
+    std::ofstream blade_face_file;
+    std::ofstream sample_points_file;
+    blade_vertex_file.open("/Users/tschucker/xcode projects/Raytracer3D/blade_verts.csv");
+    blade_face_file.open("/Users/tschucker/xcode projects/Raytracer3D/blade_faces.csv");
+    sample_points_file.open("/Users/tschucker/xcode projects/Raytracer3D/sample_points.csv");
     
+    int j = 1;
+    std::vector<Point3D> test;
+    for (int b = 0; b<s.get_rotor().get_Blades().size(); b++) {
+        for (int i = 0 ; i < s.get_rotor().get_Blades()[b].getSurface().size(); i++) {
+            Triangle temp = s.get_rotor().get_Blades()[b].getSurface()[i];
+            
+            blade_vertex_file << temp.getVertex0().x() << "," << temp.getVertex0().y() << "," << temp.getVertex0().z() << '\n';
+            blade_vertex_file << temp.getVertex1().x() << "," << temp.getVertex1().y() << "," << temp.getVertex1().z() << '\n';
+            blade_vertex_file << temp.getVertex2().x() << "," << temp.getVertex2().y() << "," << temp.getVertex2().z() << '\n';
+            
+            blade_face_file << j << "," << j+1 << "," << j+2 << '\n';
+            j = j + 3;
+        }
+    }
+    
+    for (int i = 0; i < 1000; i++) {
+        Ray3D test_ray = s.get_transmitter().makeRay_disk(s.get_rotor().get_height()-.01);
+        sample_points_file << test_ray.direction.x() << "," << test_ray.direction.y() << "," << test_ray.direction.z() << '\n';
+    }
+    sample_points_file.close();
+    blade_face_file.close();
+    blade_vertex_file.close();
+    */
     /* //test works
     Point3D pt1(1,0,10);
     std::cout << "test_point: " << pt1.x() << " " << pt1.y() << " " << pt1.z() << '\n';
