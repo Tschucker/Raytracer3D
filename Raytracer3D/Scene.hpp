@@ -49,13 +49,13 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     double frequency = test_ray.frequency;
     
     //form vect in direction of rotation...?
-    Vector3D hit_point_radius_perp(hitPoint.y(), -hitPoint.x(), 0);
+    Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
     
     //find radial distance
     double hit_point_radius_dist = std::sqrt((hitPoint.x()*hitPoint.x()) + (hitPoint.y()*hitPoint.y()));
     
     //determine reflection make sure is a vector
-    Vector3D reflection = test_ray.direction - (2 * hitNormal) * (test_ray.direction * hitNormal);
+    Vector3D reflection = -test_ray.direction + (2 * hitNormal) * (test_ray.direction * hitNormal);
     
     double omega_r = (2*M_PI/60)*RPM;
     double wave_length = SPEED_OF_LIGHT/frequency;
