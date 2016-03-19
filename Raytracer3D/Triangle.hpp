@@ -24,7 +24,6 @@ public:
     
     bool hit(const Ray3D& ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint) const;
     bool hitNoCull(const Ray3D& ray, double& hitDistance, Vector3D& hitNormal, Point3D& hitPoint) const;
-    //Bounding_box getBoundingBox() const;
     
     bool operator==(Triangle& Tri) ;
     
