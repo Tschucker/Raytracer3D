@@ -9,9 +9,6 @@
 #include "Scene.hpp"
 #include <time.h>
 
-int bounce = 0;
-
-
 Scene::Scene()
 {
     //create all objects for the scene
@@ -20,7 +17,7 @@ Scene::Scene()
     rotor = Rotor(0, 2, 400, 100, 0, 7.5, 5);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 2000, 1000000000, Point3D(0, 2, rotor.get_height() - 2), .3, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv");
+    receiver = Receiver(0, 2000, 1000000000, Point3D(0, 2, rotor.get_height() - 2), .3, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
     transmitter = Transmitter(0, 1000000000, 1000, Point3D(100,100,0), 8);

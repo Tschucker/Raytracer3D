@@ -16,15 +16,20 @@ Receiver::Receiver()
 }
 
 Receiver::Receiver(const int id, const double Bandwidth, const double center_freq,
-                   const Point3D& center, const double boundary_radius, const std::string& savefile_name) :
+                   const Point3D& center, const double boundary_radius, const std::string& samplefile_name, const std::string& dopplerfile_name) :
     id(id), Bandwidth(Bandwidth), center_freq(center_freq), center(center), boundary_radius(boundary_radius)
 {
     boundary = Sphere(boundary_radius, center);
-    file = savefile_name;
+    sample_file = samplefile_name;
+    doppler_file = dopplerfile_name;
+    
+    //clear data
     std::ofstream myfile;
-    myfile.open (file);
+    myfile.open (sample_file);
     myfile.close();
-}
+    
+    myfile.open (doppler_file);
+    myfile.close();}
 
 Sphere Receiver::get_Boundary()
 {
@@ -59,10 +64,14 @@ void Receiver::save_to_file(){
               [] (Ray3D const& a, Ray3D const& b) { return a.distance < b.distance; });
     
     std::ofstream myfile;
-    myfile.open (file, std::ios_base::app);
+    std::ofstream dopfile;
+    myfile.open (sample_file, std::ios_base::app);
+    dopfile.open (doppler_file, std::ios_base::app);
+    
     for (int i = 0; i < frame_data.size(); i++) {
         amplitude = std::sqrt(frame_data[i].power);
         omega = 2.0 * M_PI * (frame_data[i].frequency - center_freq);
+        dopfile << omega << ",";
         t = frame_data[i].distance / SPEED_OF_LIGHT;
         
         sample = amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));
@@ -88,5 +97,6 @@ void Receiver::save_to_file(){
         
     }
     myfile.close();
+    dopfile.close();
     frame_data.clear();
 }
