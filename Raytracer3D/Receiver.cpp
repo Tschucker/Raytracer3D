@@ -71,7 +71,7 @@ void Receiver::save_to_file(){
     for (int i = 0; i < frame_data.size(); i++) {
         amplitude = std::sqrt(frame_data[i].power);
         omega = 2.0 * M_PI * (frame_data[i].frequency - center_freq);
-        dopfile << omega << ",";
+        dopfile << omega << "," << amplitude << '\n';
         t = frame_data[i].distance / SPEED_OF_LIGHT;
         
         sample = amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));

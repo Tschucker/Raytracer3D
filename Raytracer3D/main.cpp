@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     std::cout << "Raytracer3D main test!\n";
     
     Scene s;
-    s.trace_scene(1000);
+    s.trace_scene(3000);
     
     /*
     //test sphere hit
