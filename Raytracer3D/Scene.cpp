@@ -14,13 +14,13 @@ Scene::Scene()
     //create all objects for the scene
     
     //default rotor with id=0, num_blades=1, RPM=350, Height=100m, pitch=0, blade_length=5m, rib_count=10.
-    rotor = Rotor(0, 4, 400, 100, 0, 7.5, 10);
+    rotor = Rotor(0, 2, 500, 100, 0, 7.5, 10);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 4000, 1000000000, Point3D(0, 2, rotor.get_height() - .5), .25, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
+    receiver = Receiver(0, 2000, 1000000000, Point3D(0, 0, rotor.get_height() - .5), .25, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 4000, Point3D(-100,100,0), 8);
+    transmitter = Transmitter(0, 1000000000, 4000, Point3D(-1000,1000,0), 8);
     
 }
 
@@ -30,10 +30,9 @@ void Scene::trace_scene(int num_rays)
     //calc scene update params for each frame.
     double update_angle = 2*M_PI * (rotor.get_RPM()/60) * (1/receiver.get_sampling_rate());
     
-    //calc # of frames
+    //calc # of frames (half)
     int number_of_frames = (2*M_PI)/update_angle ;
     
-    //std::cout << "test: " << rotor.get_RPM() << '\n';
     std::cout << "update angle: " << update_angle << '\n';
     std::cout << "number of frames: " << number_of_frames << '\n';
     
@@ -130,15 +129,17 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
         double angle = std::acos( test_ray.direction.normalized()*spec.normalized());
         double power;
         
-        if (angle < M_PI/1.5)
+        if (angle < M_PI/2)
         {
-            power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 2);
+            power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 5);
             
         }
+        /*
         else{
             power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 20);
             
         }
+         */
         Ray3D spec_ray(test_ray.origin, spec, power, test_ray.frequency, test_ray.distance + test_ray.origin.distance(receiver.center));
         spec_ray.power = getDistancePower(spec_ray.frequency, spec_ray.power, test_ray.origin.distance(receiver.center));
         receiver.save_ray_toFrame(spec_ray);

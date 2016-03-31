@@ -57,11 +57,10 @@ void Receiver::save_to_file(){
     double t;
     double cos_d;
     double sin_d;
-    const double t_s = 1 / Bandwidth;
+    const double t_s = 1 / get_sampling_rate();
     std::complex<double> sample;
     
-    std::sort(frame_data.begin(), frame_data.end(),
-              [] (Ray3D const& a, Ray3D const& b) { return a.distance < b.distance; });
+    std::vector<std::complex<double>> resolution_samples;
     
     std::ofstream myfile;
     std::ofstream dopfile;
@@ -69,33 +68,40 @@ void Receiver::save_to_file(){
     dopfile.open (doppler_file, std::ios_base::app);
     
     for (int i = 0; i < frame_data.size(); i++) {
+        
         amplitude = std::sqrt(frame_data[i].power);
         omega = 2.0 * M_PI * (frame_data[i].frequency - center_freq);
         dopfile << omega << "," << amplitude << '\n';
         t = frame_data[i].distance / SPEED_OF_LIGHT;
         
-        sample = amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t));
-        if (sample.imag() < 0) {
-            myfile << sample.real() << sample.imag() << "i" << ",";
-        }
-        else
-            myfile << sample.real() << "+" << sample.imag() << "i" << ",";
-        
-        //
         cos_d = std::cos(omega * t_s);
         sin_d = std::sin(omega * t_s);
-        for (int j = 0; j < 100; ++j)
-        {
-            sample = std::complex<double>(sample.real() * cos_d - sample.imag() * sin_d,
-                                          sample.imag() * cos_d + sample.real() * sin_d);
-            if (sample.imag() < 0) {
-                myfile << sample.real() << sample.imag() << "i" << ",";
+        if(resolution_samples.size() > 1){
+            resolution_samples[0] += (amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t)));
+            for (int j = 1; j < 1000; ++j)
+            {
+                resolution_samples[j] += amplitude * std::complex<double>(std::cos(omega * (t + (t_s * j))), std::sin(omega * (t + (t_s * j))));
             }
-            else
-                myfile << sample.real() << "+" << sample.imag() << "i" << "," ;
+        }
+        else{
+            resolution_samples.push_back(amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t)));
+            for (int j = 1; j < 1000; ++j)
+            {
+                resolution_samples.push_back(amplitude * std::complex<double>(std::cos(omega * (t + (t_s * j))), std::sin(omega * (t + (t_s * j)))));
+            }
         }
         
     }
+    
+    for(int j = 0; j < resolution_samples.size(); j++){
+        if (resolution_samples[j].imag() < 0) {
+            myfile << resolution_samples[j].real() << resolution_samples[j].imag() << "i" << ",";
+        }
+        else
+            myfile << resolution_samples[j].real() << "+" << resolution_samples[j].imag() << "i" << "," ;
+    }
+    resolution_samples.clear();
+    
     myfile.close();
     dopfile.close();
     frame_data.clear();
