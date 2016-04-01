@@ -20,7 +20,7 @@ Scene::Scene()
     receiver = Receiver(0, 2000, 1000000000, Point3D(0, 0, rotor.get_height() - .5), .25, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 4000, Point3D(-1000,1000,0), 8);
+    transmitter = Transmitter(0, 1000000000, 4000, Point3D(-300,300,0), 8);
     
 }
 
@@ -131,7 +131,7 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
         
         if (angle < M_PI/2)
         {
-            power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 5);
+            power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 8);
             
         }
         /*
