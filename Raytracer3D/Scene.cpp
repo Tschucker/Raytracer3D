@@ -17,10 +17,11 @@ Scene::Scene()
     rotor = Rotor(0, 2, 500, 100, 0, 7.5, 10);
     
     //default receiver with id=0, Bandwidth=1Mhz, location= 2m below rotor height;
-    receiver = Receiver(0, 2000, 1000000000, Point3D(0, 0, rotor.get_height() - .5), .25, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
+    receiver = Receiver(0, 2000, 1000000000, Point3D(0, 1, rotor.get_height() - .5), .25, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
     
-    //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0);
-    transmitter = Transmitter(0, 1000000000, 4000, Point3D(-300,300,0), 8);
+    //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0)
+    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(-300,300,0), 8));
+    transmitters.push_back(Transmitter(1, 1000000000, 4000, Point3D(100,-100,0), 8));
     
 }
 
@@ -46,26 +47,28 @@ void Scene::trace_scene(int num_rays)
         clock_t time = clock();
         
         for (int j = 0; j < num_rays; j++) {
-            Ray3D test_ray = transmitter.makeRay_disk(rotor.get_height());
-            double hitDistance;
-            Vector3D hitNormal;
-            Point3D hitPoint;
+            for(int k = 0; k < transmitters.size(); k++){
+                Ray3D test_ray = transmitters[k].makeRay_disk(rotor.get_height());
+                double hitDistance;
+                Vector3D hitNormal;
+                Point3D hitPoint;
             
-            //check collisions
-            //line of sight
-            if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
-                //add to receiver data
-                test_ray.power = getDistancePower(test_ray.frequency, test_ray.power, hitDistance);
-                receiver.save_ray_toFrame(test_ray);
-            }
+                //check collisions
+                //line of sight
+                if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
+                    //add to receiver data
+                    test_ray.power = getDistancePower(test_ray.frequency, test_ray.power, hitDistance);
+                    receiver.save_ray_toFrame(test_ray);
+                }
             
-            else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)) {
-                //create new ray that has been doppler shifted and check receiver.
-                trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
-            }
+                else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)) {
+                    //create new ray that has been doppler shifted and check receiver.
+                    trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
+                }
             
-            else{
-                test_ray.~Ray3D();
+                else{
+                    test_ray.~Ray3D();
+                }
             }
         }
         
@@ -134,12 +137,6 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
             power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 8);
             
         }
-        /*
-        else{
-            power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 20);
-            
-        }
-         */
         Ray3D spec_ray(test_ray.origin, spec, power, test_ray.frequency, test_ray.distance + test_ray.origin.distance(receiver.center));
         spec_ray.power = getDistancePower(spec_ray.frequency, spec_ray.power, test_ray.origin.distance(receiver.center));
         receiver.save_ray_toFrame(spec_ray);

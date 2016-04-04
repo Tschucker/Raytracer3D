@@ -39,6 +39,7 @@ public:
 private:
     Rotor rotor;
     Transmitter transmitter;
+    std::vector<Transmitter> transmitters;
     Receiver receiver;
     
 };
