@@ -25,146 +25,230 @@ int main(int argc, char **argv) {
     // insert code here... for testing
     std::cout << "Raytracer3D main test!\n";
     
-    Scene s;
-    s.trace_scene(2000);
-    
+    int files = 40;
     /*
-    //test sphere hit
-    Point3D pt(0, 0, 10);
-    Sphere sp(1, pt);
+    //Simulation 1 Rotaton 400m
+    Point3D p = Point3D(400, 0, 0);
+    double angle = 0;
     
-    Ray3D testRay(Point3D(0, 10, 0), Vector3D(0, -5, 5));
-    double hitDistance;
-    Vector3D hitNormal;
-    Point3D hitPoint;
+    for(int i = 0; i <= files; i++){
+        
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m/rotate_degs_400m/rx_" + std::to_string(angle)+ "deg.csv";
+        Scene s(p.x(),p.y(),receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << p.x() << "Y_position: " << p.y() <<'\n';
+        s.trace_scene(2000);
+        p.rotate_Z(2*M_PI/files);
+        angle = angle + 2*M_PI/files;
+    }
     
-    if (sp.hit(testRay, hitDistance, hitNormal, hitPoint)) {
-        std::cout << "ray hit test succeed" << '\n';
+    //Simulation 2 Rotation 200m
+    p = Point3D(200, 0, 0);
+    angle = 0;
+    
+    for(int i = 0; i <= files; i++){
+        
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m/rotate_degs_200m/rx_" + std::to_string(angle)+ "deg.csv";
+        Scene s(p.x(),p.y(),receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << p.x() << "Y_position: " << p.y() <<'\n';
+        s.trace_scene(2000);
+        p.rotate_Z(2*M_PI/files);
+        angle = angle + 2*M_PI/files;
+    }
+    
+    //Simulation 3 Rotation 50m
+    p = Point3D(50, 0, 0);
+    angle = 0;
+    
+    for(int i = 0; i <= files; i++){
+        
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m/rotate_degs_50m/rx_" + std::to_string(angle)+ "deg.csv";
+        Scene s(p.x(),p.y(),receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << p.x() << "Y_position: " << p.y() <<'\n';
+        s.trace_scene(2000);
+        p.rotate_Z(2*M_PI/files);
+        angle = angle + 2*M_PI/files;
     }
     */
-    /*
-    //output blade points for matlab
-    std::ofstream blade_vertex_file;
-    std::ofstream blade_face_file;
-    std::ofstream sample_points_file;
-    blade_vertex_file.open("/Users/tschucker/xcode projects/Raytracer3D/blade_verts.csv");
-    blade_face_file.open("/Users/tschucker/xcode projects/Raytracer3D/blade_faces.csv");
-    sample_points_file.open("/Users/tschucker/xcode projects/Raytracer3D/sample_points.csv");
     
-    int j = 1;
-    std::vector<Point3D> test;
-    for (int b = 0; b<s.get_rotor().get_Blades().size(); b++) {
-        for (int i = 0 ; i < s.get_rotor().get_Blades()[b].getSurface().size(); i++) {
-            Triangle temp = s.get_rotor().get_Blades()[b].getSurface()[i];
-            
-            blade_vertex_file << temp.getVertex0().x() << "," << temp.getVertex0().y() << "," << temp.getVertex0().z() << '\n';
-            blade_vertex_file << temp.getVertex1().x() << "," << temp.getVertex1().y() << "," << temp.getVertex1().z() << '\n';
-            blade_vertex_file << temp.getVertex2().x() << "," << temp.getVertex2().y() << "," << temp.getVertex2().z() << '\n';
-            
-            blade_face_file << j << "," << j+1 << "," << j+2 << '\n';
-            j = j + 3;
+    //Simulation 4 Range 45deg
+    std::cout << "Simulation 4 Range 45deg" << '\n';
+    
+    double x = 700;
+    double y = 700;
+    double update = std::abs(x)/files;
+    
+    for(int i = 0; i <= files; i++){
+        clock_t time = clock();
+        std::cout << "File number: " << i <<'\n';
+        
+        double r = std::sqrt((std::pow(x,2)+std::pow(y,2)));
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_500m/data_range_45deg/rx_" + std::to_string(r)+ "m_45deg.csv";
+        Scene s(x,y,receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << x << "Y_position: " << y <<'\n';
+        s.trace_scene(2000);
+        x = x - update;
+        y = y - update;
+        
+        time = clock() - time;
+        double time_left_sec = ((files - i - 1)*time)/CLOCKS_PER_SEC;
+        if (time_left_sec > 86400) {
+            std::cout << "Time Remaining S4: " << time_left_sec/86400 << " days" << '\n';
+        }
+        else {
+            std::cout << "Time Remaining S4: " << time_left_sec/3600 << " hrs" << '\n';
+        }
+        
+    }
+    
+    //Simulation 5 Range 135deg
+    std::cout << "Simulation 5 Range 135deg" << '\n';
+    
+    x = -700;
+    y = 700;
+    update = std::abs(x)/files;
+    
+    for(int i = 0; i <= files; i++){
+        clock_t time = clock();
+        std::cout << "File number: " << i <<'\n';
+        
+        double r = std::sqrt((std::pow(x,2)+std::pow(y,2)));
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_500m/data_range_135deg/rx_" + std::to_string(r)+ "m_135deg.csv";
+        Scene s(x,y,receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << x << "Y_position: " << y <<'\n';
+        s.trace_scene(2000);
+        x = x + update;
+        y = y - update;
+        
+        time = clock() - time;
+        double time_left_sec = ((files - i - 1)*time)/CLOCKS_PER_SEC;
+        if (time_left_sec > 86400) {
+            std::cout << "Time Remaining S5: " << time_left_sec/86400 << " days" << '\n';
+        }
+        else {
+            std::cout << "Time Remaining S5: " << time_left_sec/3600 << " hrs" << '\n';
         }
     }
     
-    for (int i = 0; i < 1000; i++) {
-        Ray3D test_ray = s.get_transmitter().makeRay_disk(s.get_rotor().get_height()-.01);
-        sample_points_file << test_ray.direction.x() << "," << test_ray.direction.y() << "," << test_ray.direction.z() << '\n';
-    }
-    sample_points_file.close();
-    blade_face_file.close();
-    blade_vertex_file.close();
-    */
-    /* //test works
-    Point3D pt1(1,0,10);
-    std::cout << "test_point: " << pt1.x() << " " << pt1.y() << " " << pt1.z() << '\n';
-    pt1.rotate_Z(M_PI/2);
-    std::cout << "test_point_after: " << pt1.x() << " " << pt1.y() << " " << pt1.z() << '\n';
-    */
+    //Simulation 6 Range 225deg
+    std::cout << "Simulation 6 Range 225deg" << '\n';
     
-    /*
-    double test_cos = std::cos(M_PI/2);
-    std::cout << "cos of pi/2: " << test_cos << '\n';
-    double test_sin = std::sin(M_PI/2);
-    std::cout << "sin of pi/2: " << test_sin << '\n';
-    */
+    x = -700;
+    y = -700;
+    update = std::abs(x)/files;
     
-    /*
-    const std::string test = "/Users/tschucker/xcode projects/TestBlade/TestBlade/rib.txt";
-    const Rib rib_one(0,test);
-    
-    Blade_surface Bsurface(1,5,10,rib_one);
-    std::cout << "delta_l: " << Bsurface.delta_l << '\n';
-    */
-    
-    //TEST//
-    /*
-    Blade_surface Bsurface = s.get_rotor().get_Blades()[0];
-    
-    for (int i = 0; i < Bsurface.getRibs().size(); i++) {
-        std::cout << Bsurface.getRibs()[i].getRibPoints()[0].x() << '\n';
-        std::cout << Bsurface.getRibs()[i].getRibPoints()[0].y() << '\n';
-        std::cout << Bsurface.getRibs()[i].getRibPoints()[0].z() << '\n';
-        std::cout << '\n';
+    for(int i = 0; i <= files; i++){
+        clock_t time = clock();
+        std::cout << "File number: " << i <<'\n';
+        
+        double r = std::sqrt((std::pow(x,2)+std::pow(y,2)));
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_500m/data_range_225deg/rx_" + std::to_string(r)+ "m_225deg.csv";
+        Scene s(x,y,receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << x << "Y_position: " << y <<'\n';
+        s.trace_scene(2000);
+        x = x + update;
+        y = y + update;
+        
+        time = clock() - time;
+        double time_left_sec = ((files - i - 1)*time)/CLOCKS_PER_SEC;
+        if (time_left_sec > 86400) {
+            std::cout << "Time Remaining S6: " << time_left_sec/86400 << " days" << '\n';
+        }
+        else {
+            std::cout << "Time Remaining S6: " << time_left_sec/3600 << " hrs" << '\n';
+        }
     }
     
-    std::cout << "after Rotation " << '\n';
-    s.update(M_PI/2);
+    //Simulation 7 Range 315deg
+    std::cout << "Simulation 7 Range 315deg" << '\n';
     
+    x = 700;
+    y = -700;
+    update = std::abs(x)/files;
     
-    for (int i = 0; i < s.get_rotor().get_Blades()[0].getPoints().size(); i++) {
-        Point3D test_pt = s.get_rotor().get_Blades()[0].getPoints()[i];
-        std::cout << "before: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
-        test_pt.rotate_Z(M_PI/2);
-        std::cout << "after: " << test_pt.x() << " " << test_pt.y() << " " << test_pt.z() << '\n';
-        s.get_rotor().get_Blades()[0].getPoints()[i] = test_pt;
+    for(int i = 0; i <= files; i++){
+        clock_t time = clock();
+        std::cout << "File number: " << i <<'\n';
+        
+        double r = std::sqrt((std::pow(x,2)+std::pow(y,2)));
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_500m/data_range_315deg/rx_" + std::to_string(r)+ "m_315deg.csv";
+        Scene s(x,y,receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << x << "Y_position: " << y <<'\n';
+        s.trace_scene(2000);
+        x = x - update;
+        y = y + update;
+        
+        time = clock() - time;
+        double time_left_sec = ((files - i - 1)*time)/CLOCKS_PER_SEC;
+        if (time_left_sec > 86400) {
+            std::cout << "Time Remaining S7: " << time_left_sec/86400 << " days" << '\n';
+        }
+        else {
+            std::cout << "Time Remaining S7: " << time_left_sec/3600 << " hrs" << '\n';
+        }
     }
     
-    for (int i = 0; i < Bsurface.getPoints().size(); i++) {
-        std::cout << Bsurface.getPoints()[i].x() << '\n';
-        std::cout << Bsurface.getPoints()[i].y() << '\n';
-        std::cout << Bsurface.getPoints()[i].z() << '\n';
-        std::cout << '\n';
+    //Simulation 8 Range only x values
+    std::cout << "Simulation 8 Range only x values" << '\n';
+    
+    x = 700;
+    y = 0;
+    update = std::abs(x)/files;
+    
+    for(int i = 0; i <= files; i++){
+        clock_t time = clock();
+        std::cout << "File number: " << i <<'\n';
+        
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_500m/data_range_x/rx_" + std::to_string(x)+ "m_x.csv";
+        Scene s(x,y,receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << x << "Y_position: " << y <<'\n';
+        s.trace_scene(2000);
+        x = x - update*2; //700 to -700
+        
+        time = clock() - time;
+        double time_left_sec = ((files - i - 1)*time)/CLOCKS_PER_SEC;
+        if (time_left_sec > 86400) {
+            std::cout << "Time Remaining S8: " << time_left_sec/86400 << " days" << '\n';
+        }
+        else {
+            std::cout << "Time Remaining S8: " << time_left_sec/3600 << " hrs" << '\n';
+        }
     }
-    */
     
-    //std::cout << "surface triangles: "<< Bsurface.getSurface().size()<< '\n';
+    //Simulation 9 Range only y values
+    std::cout << "Simulation 9 Range only x values" << '\n';
     
-    /*
-    Transmitter tr(0, 10, 10, Point3D(5, 5, 0), 5);
-    for (int i = 0; i <2000; i++) {
-        tr.makeRay_disk(12);
+    x = 0;
+    y = 700;
+    update = std::abs(y)/files;
+    
+    for(int i = 0; i <= files; i++){
+        clock_t time = clock();
+        std::cout << "File number: " << i <<'\n';
+        
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_500m/data_range_y/rx_" + std::to_string(y)+ "m_y.csv";
+        Scene s(x,y,receiver_file);
+        std::cout << "***Starting New Transmitter Position ***" << '\n';
+        std::cout << "X_position: " << x << "Y_position: " << y <<'\n';
+        s.trace_scene(2000);
+        y = y - update*2; //700 to -700
+        
+        time = clock() - time;
+        double time_left_sec = ((files - i - 1)*time)/CLOCKS_PER_SEC;
+        if (time_left_sec > 86400) {
+            std::cout << "Time Remaining S9: " << time_left_sec/86400 << " days" << '\n';
+        }
+        else {
+            std::cout << "Time Remaining S9: " << time_left_sec/3600 << " hrs" << '\n';
+        }
     }
-    */
-    
-    //Bounding_box bbox(Bsurface);
-    
-    
-    /*//TEST//
-    Point3D pt(0, .9, 10);
-    Sphere s(1,pt);
-    
-    Ray3D testRay;
-    double hitDistance;
-    Vector3D hitNormal;
-    Point3D hitPoint;
-    
-    if (s.hit(testRay, hitDistance, hitNormal, hitPoint)) {
-        std::cout << "ray hit" << '\n';
-    }
-    */
-    
-    //TEST axis aligned bounding box max and min
-    /*
-    Bounding_box box(Bsurface.getPoints());
-    
-    std::cout << Bsurface.getBox().min_point.x() << '\n';
-    std::cout << Bsurface.getBox().max_point.x() << '\n';
-    */
-    
-    //minimum double value
-    //std::cout << std::defaultfloat << std::numeric_limits<double>::min() << '\n';
-    
-    //test scene generation.
     
     return 0;
 }

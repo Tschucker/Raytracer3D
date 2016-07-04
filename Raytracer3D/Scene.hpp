@@ -24,6 +24,7 @@ class Scene
 {
 public:
     Scene();
+    explicit Scene(double x, double y, const std::string &filename);
     
     Rotor get_rotor();
     Transmitter get_transmitter();
@@ -49,7 +50,7 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     //!!!!! doppler does not get affected by the normal, need to check this. not sure if this is correct.
     double frequency = test_ray.frequency;
     
-    //form vect in direction of rotation...?
+    //form vect in direction of rotation
     Vector3D hit_point_radius_perp(-hitPoint.y(), hitPoint.x(), 0);
     
     //find radial distance
