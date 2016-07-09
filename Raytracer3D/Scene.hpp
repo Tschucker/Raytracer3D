@@ -24,7 +24,7 @@ class Scene
 {
 public:
     Scene();
-    explicit Scene(double x, double y, const std::string &filename);
+    explicit Scene(double rx_x, double rx_y, double rx_z, double Bandwidth, double rx_fc, double tx_x, double tx_y, double tx_fc, double tx_power, int num_blades, double RPM, double altitude, double pitch, double blade_length, int num_ribs, const std::string &filename);
     
     Rotor get_rotor();
     Transmitter get_transmitter();

@@ -20,26 +20,17 @@ Scene::Scene()
     receiver = Receiver(0, 2000, 1000000000, Point3D(0, 7, rotor.get_height() - .5), .25, "/Users/tschucker/xcode projects/Raytracer3D/rx.csv", "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
     
     //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0)
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(-120,120,0), 8));
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(120,120,0), 8));
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(170,0,0), 8));
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(-170,0,0), 8));
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(0,170,0), 8));
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(0,-170,0), 8));
 }
 
-Scene::Scene(double x, double y, const std::string &filename)
+Scene::Scene(double rx_x, double rx_y, double rx_z, double Bandwidth, double rx_fc, double tx_x, double tx_y, double tx_fc, double tx_power, int num_blades, double RPM, double altitude, double pitch, double blade_length, int num_ribs, const std::string &filename)
 {
     //create all objects for the scene
     
-    //default rotor with id=0, num_blades=2, RPM=500, Height=500m, pitch=0, blade_length=7.5m, rib_count=10.
-    rotor = Rotor(0, 2, 500, 500, 0, 7.5, 10);
+    rotor = Rotor(0, num_blades, RPM, altitude, pitch, blade_length, num_ribs);
     
-    //default receiver with id=0, Bandwidth=2000, location= 2m below rotor height;
-    receiver = Receiver(0, 2000, 1000000000, Point3D(0, 7, rotor.get_height() - 2), .25, filename, "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
+    receiver = Receiver(0, Bandwidth, rx_fc, Point3D(rx_x, rx_y, rotor.get_height() - rx_z), .25, filename, "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
     
-    //default transmitter with id=0, frequency=1Ghz, power=10?, location(0,100,0)
-    transmitters.push_back(Transmitter(0, 1000000000, 4000, Point3D(x,y,0), 8));
+    transmitters.push_back(Transmitter(0, tx_fc, tx_power, Point3D(tx_x,tx_y,0), std::pow((blade_length + 0.5), 2)));
 }
 
 //traces the scene with # of rays per frame.

@@ -45,8 +45,8 @@ Ray3D Transmitter::makeRay_disk(const double height)
     double r = rayDirectionDistribution_r(generator);
     double theta = rayDirectionDistribution_theta(generator);
     
-    const double x = r*std::cos(theta) + direction.x();
-    const double y = r*std::sin(theta) + direction.y();
+    const double x = std::sqrt(r)*std::cos(theta) + direction.x();
+    const double y = std::sqrt(r)*std::sin(theta) + direction.y();
     const double z = 0 + direction.z();
     
     //TEST//std::cout << x << " " << y << " " << z << ";" << '\n';
