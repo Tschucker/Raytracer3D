@@ -62,7 +62,7 @@ inline double Scene::getDoppler(Ray3D &test_ray, Vector3D &hitNormal, Point3D &h
     double omega_r = (2*M_PI/60)*RPM;
     double wave_length = SPEED_OF_LIGHT/frequency;
     
-    frequency = frequency + (((hit_point_radius_dist*omega_r)/wave_length)
+    frequency = frequency + 2*(((hit_point_radius_dist*omega_r)/wave_length)
         *(hit_point_radius_perp.normalized()*reflection.normalized()));
     
     return frequency;

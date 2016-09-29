@@ -20,12 +20,12 @@ Blade_surface::Blade_surface(const int id, const double length, const int Rib_co
     id(id), length(length), Rib_count(Rib_count)
 {
     Ribs.push_back(origin_Rib);
-    
     delta_l = length/Rib_count;
     
     for (int i = 1; i < Rib_count + 1; i++) //add 1 to get correct blade length in m
     {
         Ribs.push_back( Rib(i, Ribs[i -1], delta_l));
+        
     }
     
     for (int i = 0; i < Ribs.size(); i++) {

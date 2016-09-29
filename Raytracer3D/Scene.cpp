@@ -29,6 +29,10 @@ Scene::Scene(double rx_x, double rx_y, double rx_z, double Bandwidth, double rx_
     rotor = Rotor(0, num_blades, RPM, altitude, pitch, blade_length, num_ribs);
     
     receiver = Receiver(0, Bandwidth, rx_fc, Point3D(rx_x, rx_y, rotor.get_height() - rx_z), .25, filename, "/Users/tschucker/xcode projects/Raytracer3D/dop.csv");
+    std::ofstream myfile;
+    myfile.open (filename, std::ios_base::app);
+    myfile << altitude << "," << tx_x << "," << tx_y << "," << std::sqrt(tx_x*tx_x + tx_y*tx_y) << "," << std::atan(altitude/std::sqrt(tx_x*tx_x + tx_y*tx_y)) << "," << std::atan(tx_y/tx_x) << ",";
+    myfile.close();
     
     transmitters.push_back(Transmitter(0, tx_fc, tx_power, Point3D(tx_x,tx_y,0), std::pow((blade_length + 0.5), 2)));
 }
@@ -42,7 +46,7 @@ void Scene::trace_scene(int num_rays)
     //calc # of frames (half)
     int number_of_frames = (2*M_PI)/update_angle ;
     
-    std::cout << "update angle: " << update_angle << '\n';
+    //std::cout << "update angle: " << update_angle << '\n';
     std::cout << "number of frames: " << number_of_frames << '\n';
     
     //iterate over the frames
@@ -131,7 +135,8 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
         }
         else
         {
-            power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 10);
+            //power = test_ray.power*std::pow(test_ray.direction.normalized()*spec.normalized(), 10);
+            power = 0;
             
         }
         
