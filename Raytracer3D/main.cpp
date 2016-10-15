@@ -62,25 +62,26 @@ int main(int argc, char **argv) {
     //--------------------------------------------------------------------------------------------------------------------------------------
 
     
-    /*
-    //sim 1 variable azimuth angle at tx range
-    std::cout << "Simulation 1 azimuth" << '\n';
+    
+    //sim 1 variable azimuth angle at tx range pitch
+    std::cout << "Simulation 1 azimuth pitch" << '\n';
     
     // setup wanted start conditions and updating parmaters
-    files = 1;
-    tx_x = 50;
+    files = 10;
+    tx_x = 200;
     tx_y = 0;
+    pitch = -0.1309;
     Point3D p(tx_x, tx_y, 0);
     update = (2*M_PI)/files;
     angle = 0;
     
     //Run Simulation
     
-    for(int i = 1; i <= files; i++){
+    for(int i = 0; i <= files; i++){
         clock_t time = clock();
         std::cout << "File number: " << i <<'\n';
         
-        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/rotation_50m/rx_" + std::to_string(angle) + "rad.csv;
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m/bistatic_azimuth_45_pitch/rx_test_Bistatic_dop" + std::to_string(angle) + "rad.csv";
         
         Scene s(rx_x, rx_y, rx_z, Bandwidth, rx_fc, p.x(), p.y(), tx_fc, tx_power, num_blades, RPM, altitude, pitch, blade_length, num_ribs,receiver_file);
         
@@ -101,19 +102,21 @@ int main(int argc, char **argv) {
         
     }
     
-    
+    /*
     //sim 2 variable range 0deg
     std::cout << "Simulation 2 range 0 deg" << '\n';
-    files = 10;
-    tx_x = 400;
+    files = 0;
+    tx_x = 200;
     tx_y = 0;
+    Bandwidth = 2000;
+    RPM = 250;
     update = tx_x/files;
     
     for(int i = 0; i <= files; i++){
         clock_t time = clock();
         std::cout << "File number: " << i <<'\n';
         
-        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Centered/Altitude_200m/data_range_0deg/rx_" + std::to_string(tx_x) + "m_0deg.csv";
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m//rx_" + std::to_string(tx_x) + "m_0deg.csv";
         
         Scene s(rx_x, rx_y, rx_z, Bandwidth, rx_fc, tx_x, tx_y, tx_fc, tx_power, num_blades, RPM, altitude, pitch, blade_length, num_ribs,receiver_file);
         
@@ -132,6 +135,7 @@ int main(int argc, char **argv) {
         }
         
     }
+    
     
     //sim 3 variable range 45deg
     std::cout << "Simulation 3 range 45 deg" << '\n';
@@ -165,19 +169,18 @@ int main(int argc, char **argv) {
         
     }
     
-    
     //sim 4 variable range 90deg
     std::cout << "Simulation 4 range 90 deg" << '\n';
     files = 10;
     tx_x = 0;
-    tx_y = 400;
+    tx_y = 600;
     update = tx_y/files;
     
     for(int i = 0; i <= files; i++){
         clock_t time = clock();
         std::cout << "File number: " << i <<'\n';
         
-        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Centered/Altitude_200m/data_range_90deg/rx_" + std::to_string(tx_y) + "m_90deg.csv";
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m/bistatic_range_90deg/rx_" + std::to_string(tx_y) + "m_90deg.csv";
         
         Scene s(rx_x, rx_y, rx_z, Bandwidth, rx_fc, tx_x, tx_y, tx_fc, tx_power, num_blades, RPM, altitude, pitch, blade_length, num_ribs,receiver_file);
         
@@ -196,6 +199,7 @@ int main(int argc, char **argv) {
         }
         
     }
+    
     
     //sim 5 variable range 135deg
     std::cout << "Simulation 5 range 135 deg" << '\n';
@@ -298,14 +302,14 @@ int main(int argc, char **argv) {
     std::cout << "Simulation 8 range 270 deg" << '\n';
     files = 10;
     tx_x = 0;
-    tx_y = -400;
+    tx_y = -600;
     update = std::abs(tx_y)/files;
     
     for(int i = 0; i <= files; i++){
         clock_t time = clock();
         std::cout << "File number: " << i <<'\n';
         
-        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Centered/Altitude_200m/data_range_270deg/rx_" + std::to_string(tx_y) + "m_270deg.csv";
+        std::string receiver_file = "/Users/tschucker/Desktop/Thesis_data/Receiver_Off_Axis_7m/Altitude_200m/bistatic_range_270deg/rx_" + std::to_string(tx_y) + "m_270deg.csv";
         
         Scene s(rx_x, rx_y, rx_z, Bandwidth, rx_fc, tx_x, tx_y, tx_fc, tx_power, num_blades, RPM, altitude, pitch, blade_length, num_ribs,receiver_file);
         

@@ -61,6 +61,7 @@ void Receiver::save_to_file(){
     std::complex<double> sample;
     
     std::vector<std::complex<double>> resolution_samples;
+    resolution_samples.clear();
     
     std::ofstream myfile;
     std::ofstream dopfile;
@@ -76,25 +77,29 @@ void Receiver::save_to_file(){
         
         cos_d = std::cos(omega * t_s);
         sin_d = std::sin(omega * t_s);
-        if(resolution_samples.size() > 1){
+        if(resolution_samples.size() >= 1){
             resolution_samples[0] += (amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t)));
+            
             for (int j = 1; j < 1000; ++j)
             {
                 resolution_samples[j] += amplitude * std::complex<double>(std::cos(omega * (t + (t_s * j))), std::sin(omega * (t + (t_s * j))));
             }
+            
         }
         else{
             resolution_samples.push_back(amplitude * std::complex<double>(std::cos(omega * t), std::sin(omega * t)));
+            
             for (int j = 1; j < 1000; ++j)
             {
                 resolution_samples.push_back(amplitude * std::complex<double>(std::cos(omega * (t + (t_s * j))), std::sin(omega * (t + (t_s * j)))));
             }
+            
         }
         
     }
     
     for(int j = 0; j < resolution_samples.size(); j++){
-        if (resolution_samples[j].imag() < 0) {
+        if (resolution_samples[j].imag() <= 0) {
             myfile << resolution_samples[j].real() << resolution_samples[j].imag() << "i" << ",";
         }
         else

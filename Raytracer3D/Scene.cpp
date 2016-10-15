@@ -49,6 +49,8 @@ void Scene::trace_scene(int num_rays)
     //std::cout << "update angle: " << update_angle << '\n';
     std::cout << "number of frames: " << number_of_frames << '\n';
     
+    update((M_PI/3));
+    
     //iterate over the frames
     for (int i = 0; i < number_of_frames; i++) {
         //trace
@@ -58,7 +60,7 @@ void Scene::trace_scene(int num_rays)
         double d_number_of_frames = number_of_frames;
         double percent = (d_i/d_number_of_frames)*100;
         clock_t time = clock();
-         */
+        */
         
         for (int j = 0; j < num_rays; j++) {
             for(int k = 0; k < transmitters.size(); k++){
@@ -69,12 +71,13 @@ void Scene::trace_scene(int num_rays)
             
                 //check collisions
                 //line of sight
+                
                 if (receiver.get_Boundary().hit(test_ray, hitDistance, hitNormal, hitPoint)) {
                     //add to receiver data
                     test_ray.power = getDistancePower(test_ray.frequency, test_ray.power, hitDistance);
                     receiver.save_ray_toFrame(test_ray);
                 }
-            
+                
                 else if (rotor.hit(test_ray, hitDistance, hitNormal, hitPoint)) {
                     //create new ray that has been doppler shifted and check receiver.
                     trace_vect(test_ray, hitDistance, hitNormal, hitPoint);
@@ -108,8 +111,8 @@ void Scene::trace_vect(Ray3D &test_ray, double &hitDistance, Vector3D &hitNormal
     
     //create new ray to trace.
     test_ray.power = getDistancePower(test_ray.frequency, test_ray.power, hitDistance);
-    test_ray.origin = hitPoint;
     test_ray.frequency = getDoppler(test_ray, hitNormal, hitPoint, rotor.get_RPM());
+    test_ray.origin = hitPoint;
     test_ray.direction = reflection;
     test_ray.distance = test_ray.distance + hitDistance;
     
